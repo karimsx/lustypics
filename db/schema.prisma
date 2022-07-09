@@ -23,6 +23,8 @@ model User {
 
   tokens   Token[]
   sessions Session[]
+  files    File[]
+  Gallery  Gallery[]
 }
 
 model Session {
@@ -55,6 +57,45 @@ model Token {
   userId Int
 
   @@unique([hashedToken, type])
+}
+
+model File {
+  id        Int       @id @default(autoincrement())
+  name      String
+  mimetype  String?
+  key       String
+  keyPdf    String?
+  owner     User      @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+  gallery   Gallery?  @relation(fields: [galleryId], references: [id])
+  galleryId Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Tags {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  galleries   Gallery[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+}
+
+model Gallery {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  owner       User      @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+  files       File[]
+  categories  Tags[]
+  isPrivate   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 }
 
 // NOTE: It's highly recommended to use an enum for the token type
