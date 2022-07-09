@@ -16,6 +16,7 @@ import MailIcon from "@mui/icons-material/Mail"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import MoreIcon from "@mui/icons-material/MoreVert"
 import { Button, Divider } from "@mui/material"
+import Link from "next/link"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -182,7 +183,9 @@ export default function PrimaryAppBar() {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Button color="inherit">Explore</Button>
             <Button color="inherit">Blogs</Button>
-            <Button color="inherit">Categories</Button>
+            <Link href="/categories">
+              <Button color="inherit">Categories</Button>
+            </Link>
             <Button color="inherit">Members</Button>
 
             <Divider orientation="vertical" />
