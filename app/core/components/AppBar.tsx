@@ -181,6 +181,7 @@ export default function PrimaryAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Button color="inherit">Explore</Button>
+            <Button color="inherit">Blogs</Button>
             <Button color="inherit">Categories</Button>
             <Button color="inherit">Members</Button>
 
