@@ -3,6 +3,7 @@ import { Form, FORM_ERROR } from "app/core/components/Form"
 import signup from "app/auth/mutations/signup"
 import { Signup } from "app/auth/validations"
 import { useMutation } from "@blitzjs/rpc"
+import { RHFTextField } from "app/core/components/hook-form"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -32,8 +33,8 @@ export const SignupForm = (props: SignupFormProps) => {
           }
         }}
       >
-        <LabeledTextField name="email" label="Email" placeholder="Email" />
-        <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
+        <RHFTextField name="email" label="Email" placeholder="Email" />
+        <RHFTextField name="password" label="Password" placeholder="Password" type="password" />
       </Form>
     </div>
   )

@@ -6,6 +6,8 @@ import login from "app/auth/mutations/login"
 import { Login } from "app/auth/validations"
 import { useMutation } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
+import { RHFTextField } from "app/core/components/hook-form"
+import { Button } from "@mui/material"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
@@ -37,8 +39,8 @@ export const LoginForm = (props: LoginFormProps) => {
           }
         }}
       >
-        <LabeledTextField name="email" label="Email" placeholder="Email" />
-        <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
+        <RHFTextField name="email" label="Email" placeholder="Email" />
+        <RHFTextField name="password" label="Password" placeholder="Password" type="password" />
         <div>
           <Link href={Routes.ForgotPasswordPage()}>
             <a>Forgot your password?</a>
@@ -49,7 +51,7 @@ export const LoginForm = (props: LoginFormProps) => {
       <div style={{ marginTop: "1rem" }}>
         Or{" "}
         <Link href={Routes.SignupPage()}>
-          <a>Sign Up</a>
+          <Button variant="outlined">Sign Up</Button>
         </Link>
       </div>
     </div>

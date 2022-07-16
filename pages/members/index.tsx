@@ -11,9 +11,9 @@ import {
   Button,
   Card,
   CardContent,
+  Chip,
   Container,
   Grid,
-  Pagination,
   Paper,
   Skeleton,
   Stack,
@@ -67,33 +67,45 @@ const UserInfo = () => {
   }
 }
 
-const Home = () => {
-  const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
-  const images = [1, 2, 3, 4]
+const MembersPage = () => {
+  const cards = [
+    0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8, 4, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+  ]
+
   return (
     <>
       <Container>
-        {cards.map((card) => (
-          <Box mt={2}>
-            <Typography> Lorem ipsum, dolor sit amet consectetur adipisicing elit</Typography>
-            <Grid spacing={3} container>
-              {images.map((card) => (
-                <Grid item xs={12} md={3}>
-                  <Card>
-                    <Skeleton variant="rectangular" height={118} />
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        ))}
+        <Box pt={3}>
+          <Typography mb={2} variant="h4" component="h2">
+            Members
+          </Typography>
 
-        <Box my={4} display={"flex"} justifyContent="center">
-          <Pagination count={10}></Pagination>
+          <Grid spacing={3} container>
+            {cards.map((card) => (
+              <Grid item xs={12} md={3}>
+                <Card>
+                  <Skeleton variant="rectangular" height={118} />
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+
+          <Typography mt={4} mb={2} variant="h4" component="h2">
+            Other tags
+          </Typography>
+
+          <Box display="flex" flexWrap={"wrap"}>
+            {cards.map((card) => (
+              <Box mr={2} mt={2}>
+                <Chip label="Tag" />
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Container>
     </>
   )
 }
 
-export default Home
+export default MembersPage

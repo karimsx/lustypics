@@ -165,14 +165,17 @@ export default function PrimaryAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            LustyPics
-          </Typography>
+          <Link href="/">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              LustyPics
+            </Typography>
+          </Link>
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -181,12 +184,19 @@ export default function PrimaryAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Button color="inherit">Explore</Button>
-            <Button color="inherit">Blogs</Button>
+            <Link href="/">
+              <Button color="inherit">Explore</Button>
+            </Link>
+            <Link href="/galleries">
+              <Button color="inherit">Galleries</Button>
+            </Link>
             <Link href="/categories">
               <Button color="inherit">Categories</Button>
             </Link>
-            <Button color="inherit">Members</Button>
+
+            <Link href="/members">
+              <Button color="inherit">Members</Button>
+            </Link>
 
             <Divider orientation="vertical" />
             <Box mr={2} />

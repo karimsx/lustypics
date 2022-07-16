@@ -91,7 +91,7 @@ model Gallery {
   owner       User      @relation(fields: [ownerId], references: [id])
   ownerId     Int
   files       File[]
-  categories  Tags[]
+  tags  Tags[]
   isPrivate   Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

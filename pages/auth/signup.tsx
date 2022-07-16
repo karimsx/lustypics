@@ -8,7 +8,7 @@ const SignupPage = () => {
 
   return (
     <Layout title="Sign Up">
-      <SignupForm onSuccess={() => router.push(Routes.Home())} />
+      <SignupForm onSuccess={() => router.push(Routes.MembersPage())} />
     </Layout>
   )
 }
