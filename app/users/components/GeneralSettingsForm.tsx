@@ -26,7 +26,6 @@ import { z } from "zod"
 
 export const GeneralSettingsForm = () => {
   return (
-    <FormProvider>
       <Grid container>
         <Grid item md={4}>
           <Paper>General</Paper>
@@ -52,6 +51,5 @@ export const GeneralSettingsForm = () => {
           </Paper>
         </Grid>
       </Grid>
-    </FormProvider>
   )
 }

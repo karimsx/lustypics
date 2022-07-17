@@ -12,4 +12,14 @@ declare module "@blitzjs/auth" {
       views?: number
     }
   }
+
+  type PublicData = Session extends {
+    PublicData: unknown
+  }
+    ? Session["PublicData"]
+    : {
+        userId: unknown
+        role: Role
+        views?: number
+      }
 }

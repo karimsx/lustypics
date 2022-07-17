@@ -8,10 +8,6 @@ const chance = new Chance()
  * Probably you want to use a library like https://chancejs.com
  * to easily generate realistic data.
  */
-const seed = async () => {
-  for (let i = 0; i < 5; i++) {
-    await db.gallery.create({ data: { name: chance.string() } })
-  }
-}
+const seed = async () => {}
 
 export default seed

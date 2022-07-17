@@ -5,5 +5,6 @@ module.exports = {
   rules: {
     ...blitzEslint.rules,
     "@typescript-eslint/no-require-imports": "warn",
+    "react/jsx-key": "off",
   },
 }

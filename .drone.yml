@@ -1,0 +1,76 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+
+  - name: build
+    image: node:16.14.0-alpine
+    commands:
+      - yarn install --silent
+      - yarn run build
+    when:
+      event:
+        exclude:
+          - promote
+
+  - name: publish-staging
+    image: plugins/docker
+    settings:
+      repo: "atistela/monamphi-backend"
+      tags: staging
+      username: "atistela"
+      password: "Azerty123456-="
+      method: GET
+    when:
+      branch: main
+      status: success
+      event:
+        - promote
+      target:
+        - staging
+
+  - name: notify-watch-tower-staging
+    image: plugins/webhook
+    settings:
+      urls: http://monamphi.com:8501/v1/update
+      method: GET
+      headers:
+        - Authorization=Bearer Azerty123456-=
+    when:
+      branch: main
+      status: success
+      event:
+        - promote
+      target:
+        - staging
+
+  - name: publish
+    image: plugins/docker
+    settings:
+      repo: "atistela/monamphi-backend"
+      tags: latest
+      username: "atistela"
+      password: "Azerty123456-="
+    when:
+      branch: main
+      status: success
+      event:
+        - promote
+      target:
+        - production
+
+  - name: notify-watch-tower-production
+    image: plugins/webhook
+    settings:
+      method: GET
+      urls: http://monamphi.com:8500/v1/update
+      headers:
+        - Authorization=Bearer Azerty123456-=
+    when:
+      branch: main
+      status: success
+      event:
+        - promote
+      target:
+        - production

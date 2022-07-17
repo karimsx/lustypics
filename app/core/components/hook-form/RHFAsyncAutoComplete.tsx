@@ -72,7 +72,7 @@ export const RHFAsyncAutocomplete = ({
                 ),
               }}
               error={(touchedFields[name] || isSubmitted) && Boolean(errors?.[name])}
-              helperText={errors?.[name]?.message}
+              // helperText={errors?.[name]?.message || ''}
               inputProps={{
                 ...params.inputProps,
                 autoComplete: "disabled",
