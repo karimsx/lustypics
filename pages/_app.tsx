@@ -1,6 +1,6 @@
 import { ErrorFallbackProps, ErrorComponent, ErrorBoundary, AppProps } from "@blitzjs/next"
 import { AuthenticationError, AuthorizationError } from "blitz"
-import React from "react"
+import React, { Suspense } from "react"
 import { withBlitz } from "app/blitz-client"
 import PrimaryAppBar from "app/core/components/AppBar"
 
@@ -28,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
       <PrimaryAppBar />
-      <Component {...pageProps} />
+      <Suspense fallback={<div> Loading ... </div>}>
+        <Component {...pageProps} />
+      </Suspense>
     </ErrorBoundary>
   )
 }
