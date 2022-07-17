@@ -1,0 +1,115 @@
+<mjml version="4.9.3">
+  <mj-body background-color="#F4F4F4">
+    <mj-section
+      background-color="white"
+      background-repeat="repeat"
+      padding="20px 0"
+      text-align="center"
+    >
+      <mj-column>
+        <mj-image
+          align="center"
+          padding="10px 25px"
+          src="https://www.monamphi.com/logo/logo_monamphi.png"
+          width="128px"
+        ></mj-image>
+      </mj-column>
+    </mj-section>
+    <mj-section
+      background-color="#ffffff"
+      background-repeat="repeat"
+      background-size="auto"
+      text-align="center"
+    >
+      <mj-column>
+        <mj-text
+          align="center"
+          color="#55575d"
+          font-family="Arial, sans-serif"
+          font-size="18px"
+          font-weight="bold"
+          line-height="40px"
+          padding="0px 25px 30px 25px"
+          >Bonjours et bienvenu {{name}}
+        </mj-text>
+        <mj-text
+          align="center"
+          color="#55575d"
+          font-family="Arial, sans-serif"
+          font-size="14px"
+          line-height="28px"
+          padding="0px 25px 0px 25px"
+          >Nous sommes ravis de vous voir parmis nous! Nous avons fondé monamphi pour créer une
+          communauté d’étudiants basée sur l’aide et la partage de connaissance !</mj-text
+        >
+      </mj-column>
+    </mj-section>
+    <mj-section
+      background-color="#ffffff"
+      background-repeat="repeat"
+      background-size="auto"
+      text-align="center"
+    >
+      <mj-column>
+        <mj-text
+          align="center"
+          color="#55575d"
+          font-family="Arial, sans-serif"
+          font-size="14px"
+          line-height="28px"
+          >N'hésitez plus et accéder à l’application monamphi pour trouver tous vos camarades et
+          bénéficier de tous les outils pour vous aider dans votre vie étudiante !</mj-text
+        >
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="white">
+      <mj-column>
+        <mj-button
+          width="250px"
+          font-size="18px"
+          background-color="#00AB55"
+          href="https://www.monamphi.com/auth/login"
+          >Acceder</mj-button
+        >
+      </mj-column>
+    </mj-section>
+    <mj-section
+      background-color="#C1272D"
+      background-repeat="repeat"
+      padding="20px 0"
+      text-align="center"
+    >
+      <mj-column>
+        <mj-text
+          align="center"
+          color="#ffffff"
+          font-family="Arial, sans-serif"
+          font-size="13px"
+          line-height="22px"
+          padding="10px 25px"
+          >Cr&eacute;er par&nbsp;<a style="color: #ffffff" href="https://www.monamphi.com"
+            ><b>monamphi.com</b></a
+          ></mj-text
+        >
+      </mj-column>
+    </mj-section>
+    <mj-section
+      background-repeat="repeat"
+      background-size="auto"
+      padding="20px 0px 20px 0px"
+      text-align="center"
+    >
+      <mj-column>
+        <mj-text
+          align="center"
+          color="#55575d"
+          font-family="Arial, sans-serif"
+          font-size="11px"
+          line-height="22px"
+          padding="0px 20px"
+          >Atis Tela 86 Rue DE LA FEDERATION 75015 PARIS 15</mj-text
+        >
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

@@ -1,6 +1,7 @@
 import db from "db"
 import { SecurePassword } from "@blitzjs/auth"
 import { Role } from "types"
+import { parseTemplate, sendMail } from "mailers/base/mailer-service"
 
 export default async function signup(input, ctx) {
   const blitzContext = ctx
@@ -15,6 +16,15 @@ export default async function signup(input, ctx) {
   await blitzContext.session.$create({
     userId: user.id,
     role: user.role as Role,
+  })
+
+  await sendMail({
+    mailOptions: {
+      from: "test",
+      to: "tata@live.fr",
+      subject: "tezteztze",
+      html: await parseTemplate("welcomeMail.mjml", { name: "Karim Squalli" }),
+    },
   })
 
   return { userId: blitzContext.session.userId, ...user, email: input.email }
