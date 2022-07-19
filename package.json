@@ -25,9 +25,9 @@
     ]
   },
   "dependencies": {
-    "@blitzjs/auth": "alpha",
-    "@blitzjs/next": "alpha",
-    "@blitzjs/rpc": "alpha",
+    "@blitzjs/auth": "^2.0.0-alpha.54",
+    "@blitzjs/next": "^2.0.0-alpha.54",
+    "@blitzjs/rpc": "^2.0.0-alpha.54",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
     "@hookform/resolvers": "2.9.4",
