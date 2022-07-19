@@ -8,17 +8,17 @@ import MenuIcon from "@mui/icons-material/Menu"
 import SearchIcon from "@mui/icons-material/Search"
 import MoreIcon from "@mui/icons-material/MoreVert"
 import { useState } from "react"
+import Link from "next/link"
 
 export const AuthUserMenu = () => {
-  const user = useCurrentUser()
+  // const user = useCurrentUser()
+  // if (!user) return <></>
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null)
 
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
-
-  if (!user) return <></>
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -55,7 +55,9 @@ export const AuthUserMenu = () => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Link href={"/account"}>
+        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      </Link>
     </Menu>
   )
 

@@ -28,9 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
       <PrimaryAppBar />
-      <Suspense fallback={<div> Loading ... </div>}>
-        <Component {...pageProps} />
-      </Suspense>
+      <Component {...pageProps} />
     </ErrorBoundary>
   )
 }

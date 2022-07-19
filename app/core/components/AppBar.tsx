@@ -105,6 +105,8 @@ export default function PrimaryAppBar() {
             <Link href="/members">
               <Button color="inherit">Members</Button>
             </Link>
+
+            <AuthUserMenu />
           </Box>
         </Toolbar>
       </AppBar>
