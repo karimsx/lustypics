@@ -27,27 +27,24 @@ import { FormProvider, RHFTextField } from "app/core/components/hook-form"
 import { z } from "zod"
 import Form from "app/core/components/Form"
 
-export const GeneralSettingsForm = () => {
+export const ChangePasswordForm = () => {
   return (
     <Paper sx={{ p: 4 }}>
       <Typography mb={1} variant="h5">
-        Change your private information
-      </Typography>
-      <Typography variant="caption">
-        Please read our terms of use to be informed how we manage your private data.
+        Change your password
       </Typography>
 
       <Divider sx={{ my: 2 }} />
 
       <Form submitText="Save" onSubmit={() => {}}>
-        <Typography variant="subtitle2"> Full name </Typography>
-        <RHFTextField name="fullname" />
+        <Typography variant="subtitle2"> Old password </Typography>
+        <RHFTextField hidden name="fullname" />
 
-        <Typography variant="subtitle2"> Bio </Typography>
-        <RHFTextField rows={6} multiline name="fullname" />
+        <Typography variant="subtitle2"> New password </Typography>
+        <RHFTextField hidden rows={6} multiline name="fullname" />
 
-        <Typography variant="subtitle2"> Country </Typography>
-        <RHFTextField name="fullname" />
+        <Typography variant="subtitle2"> New password confirm </Typography>
+        <RHFTextField hidden name="fullname" />
       </Form>
 
       <Divider />
