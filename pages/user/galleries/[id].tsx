@@ -51,7 +51,7 @@ const EditGallery = () => {
               path: "https://opengraph.githubassets.com/a50af2abb3168c282c582c472cc11090485fc9d70cc71c287476d574eb579ca2/nhn/tui.image-editor/issues/288",
               name: "SampleImage",
             },
-            theme: myTheme, 
+            theme: myTheme,
             menu: ["shape", "filter", "text"],
             initMenu: "filter",
             uiSize: {

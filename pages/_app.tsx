@@ -4,6 +4,12 @@ import React, { Suspense } from "react"
 import { withBlitz } from "app/blitz-client"
 import PrimaryAppBar from "app/core/components/AppBar"
 import { TabsContext } from "@mui/base"
+import "./main.css"
+// import styles
+import 'lightgallery/css/lightgallery.css';
+import 'lightgallery/css/lg-zoom.css';
+import 'lightgallery/css/lg-thumbnail.css';
+
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {

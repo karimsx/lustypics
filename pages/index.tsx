@@ -16,55 +16,34 @@ import {
   Paper,
   Skeleton,
   Stack,
+  Link as ReactLink,
   Typography,
+  Chip,
+  IconButton,
 } from "@mui/material"
 import { Title } from "@mui/icons-material"
 import PrimaryAppBar from "app/core/components/AppBar"
 import { Box } from "@mui/system"
+import ImageGallery from "react-image-gallery"
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
+import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
-/*
- * This file is just for a pleasant getting started page for your new app.
- * You can delete everything in here and start from scratch if you like.
- */
+import { faker } from "@faker-js/faker"
 
-const UserInfo = () => {
-  const currentUser = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
-
-  if (currentUser) {
-    return (
-      <>
-        <Button
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </Button>
-        <div>
-          User id: <code>{currentUser.id}</code>
-          <br />
-          User role: <code>{currentUser.role}</code>
-        </div>
-      </>
-    )
-  } else {
-    return (
-      <>
-        <Link href={Routes.SignupPage()}>
-          <a className="button small">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href={Routes.LoginPage()}>
-          <a className="button small">
-            <strong>Login</strong>
-          </a>
-        </Link>
-      </>
-    )
-  }
-}
+const getImagesMock = () => [
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+]
 
 const Home = () => {
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
@@ -81,7 +60,64 @@ const Home = () => {
             {cards.map((card) => (
               <Grid item xs={12} md={3}>
                 <Card>
-                  <Skeleton variant="rectangular" height={118} />
+                  <ImageGallery
+                    showThumbnails={false}
+                    showPlayButton={false}
+                    showFullscreenButton={false}
+                    onClick={() => {
+                      console.log("clicked")
+                    }}
+                    renderLeftNav={(onClick, disabled) => {
+                      return (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            zIndex: 4,
+                            top: "calc(50% - 18px)",
+                          }}
+                        >
+                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                            <ChevronLeftIcon></ChevronLeftIcon>
+                          </IconButton>
+                        </Box>
+                      )
+                    }}
+                    renderRightNav={(onClick, disabled) => {
+                      return (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            zIndex: 4,
+                            top: "calc(50% - 18px)",
+                            right: "10px",
+                          }}
+                        >
+                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                            <ChevronRightIcon></ChevronRightIcon>
+                          </IconButton>
+                        </Box>
+                      )
+                    }}
+                    items={getImagesMock()}
+                  />
+                  <CardContent>
+                    <Link href="/galleries" passHref>
+                      <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
+                        <Typography>
+                          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem dolo
+                        </Typography>
+                      </ReactLink>
+                    </Link>
+
+                    <Stack mt={3} direction={"row"} flexWrap="wrap">
+                      {cards.slice(0, 6).map((card) => (
+                        <Box mx={1} my={1}>
+                          {" "}
+                          <Chip onClick={() => {}} label="testdz" />
+                        </Box>
+                      ))}
+                    </Stack>
+                  </CardContent>
                 </Card>
               </Grid>
             ))}
@@ -101,7 +137,64 @@ const Home = () => {
             {cards.map((card) => (
               <Grid item xs={12} md={3}>
                 <Card>
-                  <Skeleton variant="rectangular" height={118} />
+                  <ImageGallery
+                    showThumbnails={false}
+                    showPlayButton={false}
+                    showFullscreenButton={false}
+                    onClick={() => {
+                      console.log("clicked")
+                    }}
+                    renderLeftNav={(onClick, disabled) => {
+                      return (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            zIndex: 4,
+                            top: "calc(50% - 18px)",
+                          }}
+                        >
+                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                            <ChevronLeftIcon></ChevronLeftIcon>
+                          </IconButton>
+                        </Box>
+                      )
+                    }}
+                    renderRightNav={(onClick, disabled) => {
+                      return (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            zIndex: 4,
+                            top: "calc(50% - 18px)",
+                            right: "10px",
+                          }}
+                        >
+                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                            <ChevronRightIcon></ChevronRightIcon>
+                          </IconButton>
+                        </Box>
+                      )
+                    }}
+                    items={getImagesMock()}
+                  />
+                  <CardContent>
+                    <Link href="/galleries" passHref>
+                      <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
+                        <Typography>
+                          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem dolo
+                        </Typography>
+                      </ReactLink>
+                    </Link>
+
+                    <Stack mt={3} direction={"row"} flexWrap="wrap">
+                      {cards.slice(0, 6).map((card) => (
+                        <Box mx={1} my={1}>
+                          {" "}
+                          <Chip onClick={() => {}} label="testdz" />
+                        </Box>
+                      ))}
+                    </Stack>
+                  </CardContent>
                 </Card>
               </Grid>
             ))}
