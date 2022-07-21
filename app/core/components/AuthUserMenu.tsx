@@ -58,6 +58,9 @@ export const AuthUserMenu = () => {
       <Link href={"/account"}>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       </Link>
+      <Link href={"/user/galleries"}>
+        <MenuItem onClick={handleMenuClose}>My Galleries</MenuItem>
+      </Link>
     </Menu>
   )
 
