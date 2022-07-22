@@ -18,56 +18,39 @@ import {
   Skeleton,
   Stack,
   Typography,
+  Link as ReactLink,
 } from "@mui/material"
 import { Title } from "@mui/icons-material"
 import PrimaryAppBar from "app/core/components/AppBar"
 import { Box } from "@mui/system"
+import LightGallery from "lightgallery/react"
+import { faker } from "@faker-js/faker"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
  * You can delete everything in here and start from scratch if you like.
  */
 
-const UserInfo = () => {
-  const currentUser = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
+const getImagesMock = () => [
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+]
 
-  if (currentUser) {
-    return (
-      <>
-        <Button
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </Button>
-        <div>
-          User id: <code>{currentUser.id}</code>
-          <br />
-          User role: <code>{currentUser.role}</code>
-        </div>
-      </>
-    )
-  } else {
-    return (
-      <>
-        <Link href={Routes.SignupPage()}>
-          <a className="button small">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href={Routes.LoginPage()}>
-          <a className="button small">
-            <strong>Login</strong>
-          </a>
-        </Link>
-      </>
-    )
-  }
-}
-
-const Home = () => {
+const Galleries = () => {
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
   const images = [1, 2, 3, 4]
   return (
@@ -75,16 +58,31 @@ const Home = () => {
       <Container>
         {cards.map((card) => (
           <Box mt={2}>
-            <Typography> Lorem ipsum, dolor sit amet consectetur adipisicing elit</Typography>
-            <Grid spacing={3} container>
-              {images.map((card) => (
-                <Grid item xs={12} md={3}>
-                  <Card>
-                    <Skeleton variant="rectangular" height={118} />
-                  </Card>
+            <Paper elevation={5}>
+              <Box p={2} mb={3}>
+                <Typography> Lorem ipsum, dolor sit amet consectetur adipisicing elit </Typography>
+
+                <Grid container>
+                  {getImagesMock().map((image) => (
+                    <Grid item md={3}>
+                      <Link href="/galleries/1" passHref>
+                        <ReactLink>
+                          <Box
+                            sx={{
+                              backgroundImage: `url(${image.original})`,
+                              backgroundOrigin: "center",
+                              backgroundPosition: "center",
+                              height: "300px",
+                              mr: 2,
+                            }}
+                          />
+                        </ReactLink>
+                      </Link>
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
-            </Grid>
+              </Box>
+            </Paper>
           </Box>
         ))}
 
@@ -96,4 +94,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Galleries
