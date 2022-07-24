@@ -6,10 +6,20 @@ import PrimaryAppBar from "app/core/components/AppBar"
 import { TabsContext } from "@mui/base"
 import "./main.css"
 // import styles
-import 'lightgallery/css/lightgallery.css';
-import 'lightgallery/css/lg-zoom.css';
-import 'lightgallery/css/lg-thumbnail.css';
-
+import "lightgallery/css/lightgallery.css"
+import "lightgallery/css/lg-zoom.css"
+import "lightgallery/css/lg-thumbnail.css"
+import NotistackProvider from "app/core/components/NotistackProvider"
+import ThemeProvider from "app/core/theme"
+import { MotionLazyContainer } from "app/core/components/animate"
+import ThemeColorPresets from "app/core/components/ThemeColorPresets"
+import ThemeLocalization from "app/core/components/ThemeLocalization"
+import RtlLayout from "app/core/components/RtlLayout"
+import { ChartStyle } from "app/core/components/chart"
+import Settings from "app/core/components/settings"
+import ProgressBar from "app/core/components/ProgressBar"
+import DialogProvider from "app/core/contexts/DialogContext"
+import { QueryClient } from "@blitzjs/rpc"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {
@@ -34,8 +44,27 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      <PrimaryAppBar />
-      <Component {...pageProps} />
+      <ThemeProvider>
+        <NotistackProvider>
+          <MotionLazyContainer>
+            <ThemeColorPresets>
+              <ThemeLocalization>
+                <RtlLayout>
+                  <ChartStyle />
+                  <Settings />
+                  <ProgressBar />
+
+                  <DialogProvider>
+                    <PrimaryAppBar />
+
+                    <Component {...pageProps} />
+                  </DialogProvider>
+                </RtlLayout>
+              </ThemeLocalization>
+            </ThemeColorPresets>
+          </MotionLazyContainer>
+        </NotistackProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   )
 }
