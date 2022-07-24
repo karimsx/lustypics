@@ -14,58 +14,39 @@ import {
   Chip,
   Container,
   Grid,
+  IconButton,
   Paper,
   Skeleton,
   Stack,
   Typography,
+  Link as ReactLink,
 } from "@mui/material"
 import { Title } from "@mui/icons-material"
 import PrimaryAppBar from "app/core/components/AppBar"
 import { Box } from "@mui/system"
-
+import ImageGallery from "react-image-gallery"
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
+import ChevronRightIcon from "@mui/icons-material/ChevronRight"
+import { faker } from "@faker-js/faker"
+import { useRouter } from "next/router"
 /*
  * This file is just for a pleasant getting started page for your new app.
  * You can delete everything in here and start from scratch if you like.
  */
-
-const UserInfo = () => {
-  const currentUser = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
-
-  if (currentUser) {
-    return (
-      <>
-        <Button
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </Button>
-        <div>
-          User id: <code>{currentUser.id}</code>
-          <br />
-          User role: <code>{currentUser.role}</code>
-        </div>
-      </>
-    )
-  } else {
-    return (
-      <>
-        <Link href={Routes.SignupPage()}>
-          <a className="button small">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href={Routes.LoginPage()}>
-          <a className="button small">
-            <strong>Login</strong>
-          </a>
-        </Link>
-      </>
-    )
-  }
-}
+const getImagesMock = () => [
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+  {
+    original: faker.image.abstract(640, 480, true),
+    thumbnail: faker.image.abstract(640, 480, true),
+  },
+]
 
 const CategoriesPage = () => {
   const cards = [
@@ -73,6 +54,7 @@ const CategoriesPage = () => {
     6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
   ]
 
+  const router = useRouter()
   return (
     <>
       <Container>
@@ -85,7 +67,54 @@ const CategoriesPage = () => {
             {cards.map((card) => (
               <Grid item xs={12} md={3}>
                 <Card>
-                  <Skeleton variant="rectangular" height={118} />
+                  <ImageGallery
+                    showThumbnails={false}
+                    showPlayButton={false}
+                    showFullscreenButton={false}
+                    onClick={async () => {
+                      console.log("clicked")
+                      await router.push("/galleries")
+                    }}
+                    renderLeftNav={(onClick, disabled) => {
+                      return (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            zIndex: 4,
+                            top: "calc(50% - 18px)",
+                          }}
+                        >
+                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                            <ChevronLeftIcon></ChevronLeftIcon>
+                          </IconButton>
+                        </Box>
+                      )
+                    }}
+                    renderRightNav={(onClick, disabled) => {
+                      return (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            zIndex: 4,
+                            top: "calc(50% - 18px)",
+                            right: "10px",
+                          }}
+                        >
+                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                            <ChevronRightIcon></ChevronRightIcon>
+                          </IconButton>
+                        </Box>
+                      )
+                    }}
+                    items={getImagesMock()}
+                  />
+                  <CardContent>
+                    <Link href="/galleries" passHref>
+                      <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
+                        <Typography>Lorem ipsum</Typography>
+                      </ReactLink>
+                    </Link>
+                  </CardContent>
                 </Card>
               </Grid>
             ))}
@@ -98,7 +127,10 @@ const CategoriesPage = () => {
           <Box display="flex" flexWrap={"wrap"}>
             {cards.map((card) => (
               <Box mr={2} mt={2}>
-                <Chip label="Tag" />
+                <Chip
+                  onClick={async () => router.push("/galleries")}
+                  label={faker.internet.domainWord()}
+                />
               </Box>
             ))}
           </Box>
