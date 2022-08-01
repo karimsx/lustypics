@@ -3,7 +3,6 @@ import { AuthenticationError, AuthorizationError } from "blitz"
 import React, { Suspense } from "react"
 import { withBlitz } from "app/blitz-client"
 import PrimaryAppBar from "app/core/components/AppBar"
-import { TabsContext } from "@mui/base"
 import "./main.css"
 // import styles
 import "lightgallery/css/lightgallery.css"
@@ -14,12 +13,8 @@ import ThemeProvider from "app/core/theme"
 import { MotionLazyContainer } from "app/core/components/animate"
 import ThemeColorPresets from "app/core/components/ThemeColorPresets"
 import ThemeLocalization from "app/core/components/ThemeLocalization"
-import RtlLayout from "app/core/components/RtlLayout"
-import { ChartStyle } from "app/core/components/chart"
-import Settings from "app/core/components/settings"
 import ProgressBar from "app/core/components/ProgressBar"
 import DialogProvider from "app/core/contexts/DialogContext"
-import { QueryClient } from "@blitzjs/rpc"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {
@@ -49,17 +44,15 @@ function MyApp({ Component, pageProps }: AppProps) {
           <MotionLazyContainer>
             <ThemeColorPresets>
               <ThemeLocalization>
-                <RtlLayout>
-                  <ChartStyle />
-                  <Settings />
-                  <ProgressBar />
+                <ProgressBar />
 
-                  <DialogProvider>
+                <DialogProvider>
+                  <Suspense fallback={<div>Loading</div>}>
                     <PrimaryAppBar />
 
                     <Component {...pageProps} />
-                  </DialogProvider>
-                </RtlLayout>
+                  </Suspense>
+                </DialogProvider>
               </ThemeLocalization>
             </ThemeColorPresets>
           </MotionLazyContainer>

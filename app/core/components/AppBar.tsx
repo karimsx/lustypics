@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert"
 import { Button, Divider } from "@mui/material"
 import Link from "next/link"
 import { AuthUserMenu } from "./AuthUserMenu"
+import { useCurrentUser } from "../hooks/useCurrentUser"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,6 +61,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export default function PrimaryAppBar() {
+  const user = useCurrentUser()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -106,13 +109,17 @@ export default function PrimaryAppBar() {
               <Button color="inherit">Members</Button>
             </Link>
 
-            <Link href="/auth/signup">
-              <Button color="inherit">Signup</Button>
-            </Link>
+            {!user ?? (
+              <>
+                <Link href="/auth/signup">
+                  <Button color="inherit">Signup</Button>
+                </Link>
 
-            <Link href="/auth/login">
-              <Button color="inherit">Login</Button>
-            </Link>
+                <Link href="/auth/login">
+                  <Button color="inherit">Login</Button>
+                </Link>
+              </>
+            )}
 
             <AuthUserMenu />
           </Box>

@@ -29,6 +29,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
 import { faker } from "@faker-js/faker"
+import getCurrentUser from "app/users/queries/getCurrentUser"
 
 const getImagesMock = () => [
   {
@@ -47,7 +48,7 @@ const getImagesMock = () => [
 
 const Home = () => {
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
-
+  const user = useCurrentUser()
   return (
     <>
       <Container>
@@ -104,7 +105,8 @@ const Home = () => {
                     <Link href="/galleries" passHref>
                       <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
                         <Typography>
-                          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem dolo
+                          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                          Dolorem dolo
                         </Typography>
                       </ReactLink>
                     </Link>

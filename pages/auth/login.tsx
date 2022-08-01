@@ -4,10 +4,10 @@ import { useRouter } from "next/router"
 import { Avatar, Box, Container, CssBaseline, Paper, Typography } from "@mui/material"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { Copyright } from "@mui/icons-material"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 
 const LoginPage = () => {
   const router = useRouter()
-
   return (
     <Layout title="Log In">
       <Container component="main" maxWidth="xs">

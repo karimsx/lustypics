@@ -45,7 +45,7 @@ const SignupPage = () => {
               },
             }}
           >
-            <SignupForm onSuccess={() => router.push(Routes.MembersPage())} />
+            <SignupForm onSuccess={() => router.push("/")} />
           </Paper>
 
           <Copyright sx={{ mt: 8, mb: 4 }} />

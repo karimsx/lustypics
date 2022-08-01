@@ -11,9 +11,8 @@ import { useState } from "react"
 import Link from "next/link"
 
 export const AuthUserMenu = () => {
-  // const user = useCurrentUser()
-  // if (!user) return <></>
-
+  const user = useCurrentUser()
+  
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null)
 
@@ -54,7 +53,9 @@ export const AuthUserMenu = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <Link href={"/user/profile"}>
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      </Link>{" "}
       <Link href={"/account"}>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       </Link>
