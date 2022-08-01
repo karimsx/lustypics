@@ -1,10 +1,10 @@
 // @mui
-import { styled } from '@mui/material/styles';
-import { List, Box, ListSubheader } from '@mui/material';
+import { styled } from "@mui/material/styles"
+import { List, Box, ListSubheader } from "@mui/material"
 // type
-import { NavSectionProps } from '../type';
+import { NavSectionProps } from "../type"
 //
-import { NavListRoot } from './NavList';
+import { NavListRoot } from "./NavList"
 
 // ----------------------------------------------------------------------
 
@@ -16,10 +16,10 @@ export const ListSubheaderStyle = styled((props) => (
   paddingLeft: theme.spacing(2),
   paddingBottom: theme.spacing(1),
   color: theme.palette.text.primary,
-  transition: theme.transitions.create('opacity', {
+  transition: theme.transitions.create("opacity", {
     duration: theme.transitions.duration.shorter,
   }),
-}));
+}))
 
 // ----------------------------------------------------------------------
 
@@ -38,9 +38,7 @@ export default function NavSectionVertical({
                 opacity: 0,
               }),
             }}
-          >
-            {group.subheader}
-          </ListSubheaderStyle>
+          />
 
           {group.items.map((list) => (
             <NavListRoot key={list.title} list={list} isCollapse={isCollapse} />
@@ -48,5 +46,5 @@ export default function NavSectionVertical({
         </List>
       ))}
     </Box>
-  );
+  )
 }

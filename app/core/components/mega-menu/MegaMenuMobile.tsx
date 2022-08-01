@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react"
 // next
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
+import NextLink from "next/link"
+import { useRouter } from "next/router"
 // @mui
 import {
   Box,
@@ -15,47 +15,47 @@ import {
   ListItemText,
   ListItemIcon,
   ListItemButton,
-} from '@mui/material';
+} from "@mui/material"
 // config
-import { NAVBAR, ICON } from '../config';
+import { NAVBAR, ICON } from "../../config"
 // @types
-import { ParentItemProps, MegaMenuItemProps } from './type';
+import { ParentItemProps, MegaMenuItemProps } from "./type"
 //
-import Logo from '../Logo';
-import Iconify from '../Iconify';
-import Scrollbar from '../Scrollbar';
+import Logo from "../Logo"
+import Iconify from "../Iconify"
+import Scrollbar from "../Scrollbar"
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  navConfig: MegaMenuItemProps[];
-};
+  navConfig: MegaMenuItemProps[]
+}
 
 export default function MegaMenuMobile({ navConfig }: Props) {
-  const { pathname } = useRouter();
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const { pathname } = useRouter()
+  const [openDrawer, setOpenDrawer] = useState(false)
 
   useEffect(() => {
     if (openDrawer) {
-      handleDrawerClose();
+      handleDrawerClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname])
 
   const handleDrawerOpen = () => {
-    setOpenDrawer(true);
-  };
+    setOpenDrawer(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpenDrawer(false);
-  };
+    setOpenDrawer(false)
+  }
 
   return (
     <>
       <Button
         variant="contained"
         onClick={handleDrawerOpen}
-        startIcon={<Iconify icon={'eva:menu-2-fill'} />}
+        startIcon={<Iconify icon={"eva:menu-2-fill"} />}
       >
         Menu Mobile
       </Button>
@@ -69,8 +69,8 @@ export default function MegaMenuMobile({ navConfig }: Props) {
         <Scrollbar>
           <Logo sx={{ mx: 2.5, my: 3 }} />
 
-          <Typography variant="h6" sx={{ px: 2, mb: 2, display: 'flex', alignItems: 'center' }}>
-            <Box component={Iconify} icon={'eva:list-fill'} sx={{ mr: 1, width: 24, height: 24 }} />{' '}
+          <Typography variant="h6" sx={{ px: 2, mb: 2, display: "flex", alignItems: "center" }}>
+            <Box component={Iconify} icon={"eva:list-fill"} sx={{ mr: 1, width: 24, height: 24 }} />{" "}
             Categories
           </Typography>
 
@@ -80,44 +80,44 @@ export default function MegaMenuMobile({ navConfig }: Props) {
         </Scrollbar>
       </Drawer>
     </>
-  );
+  )
 }
 
 // ----------------------------------------------------------------------
 
 function ParentItem({ icon, title, hasSub, ...other }: ParentItemProps) {
   return (
-    <ListItemButton sx={{ textTransform: 'capitalize', height: 44 }} {...other}>
+    <ListItemButton sx={{ textTransform: "capitalize", height: 44 }} {...other}>
       <ListItemIcon sx={{ width: 22, height: 22 }}>{icon}</ListItemIcon>
-      <ListItemText primaryTypographyProps={{ typography: 'body2' }}>{title}</ListItemText>
-      {hasSub && <Box component={Iconify} icon={'eva:arrow-ios-forward-fill'} />}
+      <ListItemText primaryTypographyProps={{ typography: "body2" }}>{title}</ListItemText>
+      {hasSub && <Box component={Iconify} icon={"eva:arrow-ios-forward-fill"} />}
     </ListItemButton>
-  );
+  )
 }
 
 type SubMenuProps = {
-  parent: MegaMenuItemProps;
-  pathname: string;
-};
+  parent: MegaMenuItemProps
+  pathname: string
+}
 
 function SubMenu({ parent, pathname }: SubMenuProps) {
-  const [open, setOpen] = useState(false);
-  const { title, icon, path, children } = parent;
+  const [open, setOpen] = useState(false)
+  const { title, icon, path, children } = parent
 
   useEffect(() => {
     if (open) {
-      handleClose();
+      handleClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname])
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   if (children) {
     return (
@@ -132,9 +132,9 @@ function SubMenu({ parent, pathname }: SubMenuProps) {
         >
           <Stack direction="row" alignItems="center" px={1} py={1.5}>
             <IconButton onClick={handleClose}>
-              <Iconify icon={'eva:arrow-ios-back-fill'} width={20} height={20} />
+              <Iconify icon={"eva:arrow-ios-back-fill"} width={20} height={20} />
             </IconButton>
-            <Typography noWrap variant="subtitle1" sx={{ ml: 1, textTransform: 'capitalize' }}>
+            <Typography noWrap variant="subtitle1" sx={{ ml: 1, textTransform: "capitalize" }}>
               {title}
             </Typography>
           </Stack>
@@ -143,14 +143,14 @@ function SubMenu({ parent, pathname }: SubMenuProps) {
           <Scrollbar>
             <Stack spacing={5} py={3}>
               {children.map((list) => {
-                const { subheader, items } = list;
+                const { subheader, items } = list
 
                 return (
                   <List key={subheader} disablePadding>
                     <Typography
                       component="div"
                       variant="overline"
-                      sx={{ px: 2.5, mb: 1, color: 'text.secondary' }}
+                      sx={{ px: 2.5, mb: 1, color: "text.secondary" }}
                       noWrap
                     >
                       {subheader}
@@ -163,40 +163,40 @@ function SubMenu({ parent, pathname }: SubMenuProps) {
                               mr: 0.5,
                               width: ICON.NAVBAR_ITEM,
                               height: ICON.NAVBAR_ITEM,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
                             }}
                           >
                             <Box
                               sx={{
                                 width: 4,
                                 height: 4,
-                                bgcolor: 'currentColor',
-                                borderRadius: '50%',
+                                bgcolor: "currentColor",
+                                borderRadius: "50%",
                               }}
                             />
                           </ListItemIcon>
                           <ListItemText
                             primary={link.title}
-                            primaryTypographyProps={{ typography: 'body2', noWrap: true }}
+                            primaryTypographyProps={{ typography: "body2", noWrap: true }}
                           />
                         </ListItemButton>
                       </NextLink>
                     ))}
                   </List>
-                );
+                )
               })}
             </Stack>
           </Scrollbar>
         </Drawer>
       </>
-    );
+    )
   }
 
   return (
     <NextLink href={path} passHref>
       <ParentItem title={title} icon={icon} />
     </NextLink>
-  );
+  )
 }

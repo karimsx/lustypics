@@ -1,18 +1,18 @@
 // next
-import NextLink from 'next/link';
+import NextLink from "next/link"
 // @mui
-import { Box, Link, ListItemText } from '@mui/material';
+import { Box, Link, ListItemText } from "@mui/material"
 // type
-import { NavItemProps } from '../type';
+import { NavItemProps } from "../type"
 //
-import Iconify from '../../Iconify';
-import { ListItemStyle, ListItemTextStyle, ListItemIconStyle } from './style';
-import { isExternalLink } from '../index';
+import Iconify from "../../Iconify"
+import { ListItemStyle, ListItemTextStyle, ListItemIconStyle } from "./style"
+import { isExternalLink } from "../index"
 
 // ----------------------------------------------------------------------
 
 export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }: NavItemProps) {
-  const { title, path, icon, info, children } = item;
+  const { title, path, icon, info, children } = item
 
   const renderContent = (
     <>
@@ -25,33 +25,33 @@ export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }: 
         </>
       )}
     </>
-  );
+  )
 
   if (children) {
     return (
       <ListItemStyle onClick={onOpen} activeRoot={active}>
         {renderContent}
       </ListItemStyle>
-    );
+    )
   }
 
   return isExternalLink(path) ? (
-    <ListItemStyle component={Link} href={path} target="_blank" rel="noopener">
+    <ListItemStyle component={Link as any} href={path} target="_blank" rel="noopener">
       {renderContent}
     </ListItemStyle>
   ) : (
     <NextLink href={path} passHref={true}>
       <ListItemStyle activeRoot={active}>{renderContent}</ListItemStyle>
     </NextLink>
-  );
+  )
 }
 
 // ----------------------------------------------------------------------
 
-type NavItemSubProps = Omit<NavItemProps, 'isCollapse'>;
+type NavItemSubProps = Omit<NavItemProps, "isCollapse">
 
 export function NavItemSub({ item, open = false, active = false, onOpen }: NavItemSubProps) {
-  const { title, path, info, children } = item;
+  const { title, path, info, children } = item
 
   const renderContent = (
     <>
@@ -60,18 +60,18 @@ export function NavItemSub({ item, open = false, active = false, onOpen }: NavIt
       {info && info}
       {children && <ArrowIcon open={open} />}
     </>
-  );
+  )
 
   if (children) {
     return (
       <ListItemStyle onClick={onOpen} activeSub={active} subItem>
         {renderContent}
       </ListItemStyle>
-    );
+    )
   }
 
   return isExternalLink(path) ? (
-    <ListItemStyle component={Link} href={path} target="_blank" rel="noopener" subItem>
+    <ListItemStyle component={Link as any} href={path} target="_blank" rel="noopener" subItem>
       {renderContent}
     </ListItemStyle>
   ) : (
@@ -80,14 +80,14 @@ export function NavItemSub({ item, open = false, active = false, onOpen }: NavIt
         {renderContent}
       </ListItemStyle>
     </NextLink>
-  );
+  )
 }
 
 // ----------------------------------------------------------------------
 
 type DotIconProps = {
-  active: boolean;
-};
+  active: boolean
+}
 
 export function DotIcon({ active }: DotIconProps) {
   return (
@@ -97,33 +97,33 @@ export function DotIcon({ active }: DotIconProps) {
         sx={{
           width: 4,
           height: 4,
-          borderRadius: '50%',
-          bgcolor: 'text.disabled',
+          borderRadius: "50%",
+          bgcolor: "text.disabled",
           transition: (theme) =>
-            theme.transitions.create('transform', {
+            theme.transitions.create("transform", {
               duration: theme.transitions.duration.shorter,
             }),
           ...(active && {
-            transform: 'scale(2)',
-            bgcolor: 'primary.main',
+            transform: "scale(2)",
+            bgcolor: "primary.main",
           }),
         }}
       />
     </ListItemIconStyle>
-  );
+  )
 }
 
 // ----------------------------------------------------------------------
 
 type ArrowIconProps = {
-  open: boolean;
-};
+  open: boolean
+}
 
 export function ArrowIcon({ open }: ArrowIconProps) {
   return (
     <Iconify
-      icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
+      icon={open ? "eva:arrow-ios-downward-fill" : "eva:arrow-ios-forward-fill"}
       sx={{ width: 16, height: 16, ml: 1 }}
     />
-  );
+  )
 }

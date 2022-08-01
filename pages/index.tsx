@@ -50,7 +50,7 @@ const Home = () => {
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
   const user = useCurrentUser()
   return (
-    <>
+    <Layout>
       <Container>
         <Box pt={3}>
           <Typography mb={2} variant="h4" component="h2">
@@ -207,7 +207,7 @@ const Home = () => {
           <Button variant="contained"> See More</Button>
         </Stack>
       </Container>
-    </>
+    </Layout>
   )
 }
 

@@ -1,34 +1,34 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react"
 // @mui
-import { alpha, styled } from '@mui/material/styles';
+import { alpha, styled } from "@mui/material/styles"
 import {
   LinkProps,
   ListItemText,
   ListItemButton,
   ListItemIcon,
   ListItemButtonProps,
-} from '@mui/material';
+} from "@mui/material"
 // config
-import { ICON, NAVBAR } from '../../config';
+import { ICON, NAVBAR } from "../../../config"
 
 // ----------------------------------------------------------------------
 
-type IProps = LinkProps & ListItemButtonProps;
+type IProps = LinkProps & ListItemButtonProps
 
 interface ListItemStyleProps extends IProps {
-  component?: ReactNode;
-  activeRoot?: boolean;
-  activeSub?: boolean;
-  subItem?: boolean;
+  component?: ReactNode
+  activeRoot?: boolean
+  activeSub?: boolean
+  subItem?: boolean
 }
 
 export const ListItemStyle = styled(ListItemButton, {
-  shouldForwardProp: (prop) => prop !== 'activeRoot' && prop !== 'activeSub' && prop !== 'subItem',
+  shouldForwardProp: (prop) => prop !== "activeRoot" && prop !== "activeSub" && prop !== "subItem",
 })<ListItemStyleProps>(({ activeRoot, activeSub, subItem, theme }) => ({
   ...theme.typography.body2,
-  position: 'relative',
+  position: "relative",
   height: NAVBAR.DASHBOARD_ITEM_ROOT_HEIGHT,
-  textTransform: 'capitalize',
+  textTransform: "capitalize",
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(1.5),
   marginBottom: theme.spacing(0.5),
@@ -49,30 +49,30 @@ export const ListItemStyle = styled(ListItemButton, {
   ...(subItem && {
     height: NAVBAR.DASHBOARD_ITEM_SUB_HEIGHT,
   }),
-}));
+}))
 
 interface ListItemTextStyleProps extends ListItemButtonProps {
-  isCollapse?: boolean;
+  isCollapse?: boolean
 }
 
 export const ListItemTextStyle = styled(ListItemText, {
-  shouldForwardProp: (prop) => prop !== 'isCollapse',
+  shouldForwardProp: (prop) => prop !== "isCollapse",
 })<ListItemTextStyleProps>(({ isCollapse, theme }) => ({
-  whiteSpace: 'nowrap',
-  transition: theme.transitions.create(['width', 'opacity'], {
+  whiteSpace: "nowrap",
+  transition: theme.transitions.create(["width", "opacity"], {
     duration: theme.transitions.duration.shorter,
   }),
   ...(isCollapse && {
     width: 0,
     opacity: 0,
   }),
-}));
+}))
 
 export const ListItemIconStyle = styled(ListItemIcon)({
   width: ICON.NAVBAR_ITEM,
   height: ICON.NAVBAR_ITEM,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  '& svg': { width: '100%', height: '100%' },
-});
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  "& svg": { width: "100%", height: "100%" },
+})

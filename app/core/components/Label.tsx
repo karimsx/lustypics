@@ -89,7 +89,7 @@ export default function Label({ color = 'default', variant = 'ghost', children, 
   const theme = useTheme();
 
   return (
-    <RootStyle ownerState={{ color, variant }} sx={sx} theme={theme}>
+    <RootStyle sx={sx} theme={theme}>
       {children}
     </RootStyle>
   );

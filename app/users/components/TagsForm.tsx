@@ -1,7 +1,6 @@
 import { Suspense } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
@@ -41,7 +40,7 @@ export const TagsForm = () => {
 
       <Divider sx={{ my: 2 }} />
 
-      <Form submitText="Save" onSubmit={() => {}}>
+      <Form submitText="Save" onSubmit={async (values) => {}}>
         <Typography variant="subtitle2"> Standard </Typography>
         <Box display="flex" flexWrap={"wrap"}>
           {cards.map((card) => (

@@ -45,29 +45,7 @@ const EditGallery = () => {
       <GenericHeader primaryText="Edit gallery" secondaryText="gallery name" />
 
       <Container>
-        <ImageEditor
-          includeUI={{
-            loadImage: {
-              path: "https://opengraph.githubassets.com/a50af2abb3168c282c582c472cc11090485fc9d70cc71c287476d574eb579ca2/nhn/tui.image-editor/issues/288",
-              name: "SampleImage",
-            },
-            theme: myTheme,
-            menu: ["shape", "filter", "text"],
-            initMenu: "filter",
-            uiSize: {
-              width: "1000px",
-              height: "700px",
-            },
-            menuBarPosition: "bottom",
-          }}
-          cssMaxHeight={500}
-          cssMaxWidth={700}
-          selectionStyle={{
-            cornerSize: 20,
-            rotatingPointOffset: 70,
-          }}
-          usageStatistics={true}
-        />
+        <ImageEditor />
         {cards.map((card) => (
           <Box mt={2}>
             <Grid spacing={3} container>

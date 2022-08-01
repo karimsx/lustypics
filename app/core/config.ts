@@ -1,4 +1,3 @@
-import { SettingsValueProps } from "./components/settings/type"
 // routes
 import { PATH_DASHBOARD } from "./routes/paths"
 
@@ -69,7 +68,7 @@ export const cookiesKey = {
   themeStretch: "themeStretch",
 }
 
-export const defaultSettings: SettingsValueProps = {
+export const defaultSettings = {
   themeMode: "light",
   themeDirection: "ltr",
   themeColorPresets: "default",

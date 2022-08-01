@@ -1,5 +1,6 @@
 import Head from "next/head"
 import React, { FC } from "react"
+import MainLayout from "./main"
 
 const Layout: FC<{ title?: string; children?: React.ReactNode }> = ({ title, children }) => {
   return (
@@ -9,7 +10,7 @@ const Layout: FC<{ title?: string; children?: React.ReactNode }> = ({ title, chi
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {children}
+      <MainLayout>{children}</MainLayout>
     </>
   )
 }

@@ -1,7 +1,6 @@
 import { Suspense } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
@@ -36,7 +35,7 @@ export const NotificationForm = () => {
 
       <Divider sx={{ my: 2 }} />
 
-      <Form submitText="Save" onSubmit={() => {}}>
+      <Form submitText="Save" onSubmit={async (values) => {}}>
         <Grid container>
           <Grid item xs={12} md={6}>
             <Typography variant="subtitle1" fontWeight={"bold"}>

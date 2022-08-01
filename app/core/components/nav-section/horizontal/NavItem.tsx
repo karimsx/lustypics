@@ -1,22 +1,22 @@
-import { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef } from "react"
 // next
-import NextLink from 'next/link';
+import NextLink from "next/link"
 // @mui
-import { Box, Link } from '@mui/material';
+import { Box, Link } from "@mui/material"
 // config
-import { ICON } from '../../config';
+import { ICON } from "../../../config"
 // type
-import { NavItemProps } from '../type';
+import { NavItemProps } from "../type"
 //
-import Iconify from '../../Iconify';
-import { ListItemStyle } from './style';
-import { isExternalLink } from '../index';
+import Iconify from "../../Iconify"
+import { ListItemStyle } from "./style"
+import { isExternalLink } from "../index"
 
 // ----------------------------------------------------------------------
 
 export const NavItemRoot = forwardRef<HTMLButtonElement & HTMLAnchorElement, NavItemProps>(
   ({ item, active, open, onMouseEnter, onMouseLeave }, ref) => {
-    const { title, path, icon, children } = item;
+    const { title, path, icon, children } = item
 
     if (children) {
       return (
@@ -27,30 +27,36 @@ export const NavItemRoot = forwardRef<HTMLButtonElement & HTMLAnchorElement, Nav
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
-          <NavItemContent icon={icon} title={title} children={children} />
+          <NavItemContent icon={icon} title={title}>
+            {children}
+          </NavItemContent>
         </ListItemStyle>
-      );
+      )
     }
 
     return isExternalLink(path) ? (
-      <ListItemStyle component={Link} href={path} target="_blank" rel="noopener">
-        <NavItemContent icon={icon} title={title} children={children} />
+      <ListItemStyle component={Link as any} href={path} target="_blank" rel="noopener">
+        <NavItemContent icon={icon} title={title}>
+          {children}
+        </NavItemContent>
       </ListItemStyle>
     ) : (
       <NextLink href={path} passHref>
         <ListItemStyle activeRoot={active}>
-          <NavItemContent icon={icon} title={title} children={children} />
+          <NavItemContent icon={icon} title={title}>
+            {children}
+          </NavItemContent>
         </ListItemStyle>
       </NextLink>
-    );
+    )
   }
-);
+)
 
 // ----------------------------------------------------------------------
 
 export const NavItemSub = forwardRef<HTMLButtonElement & HTMLAnchorElement, NavItemProps>(
   ({ item, active, open, onMouseEnter, onMouseLeave }, ref) => {
-    const { title, path, icon, children } = item;
+    const { title, path, icon, children } = item
 
     if (children) {
       return (
@@ -63,9 +69,11 @@ export const NavItemSub = forwardRef<HTMLButtonElement & HTMLAnchorElement, NavI
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
-          <NavItemContent icon={icon} title={title} children={children} subItem />
+          <NavItemContent icon={icon} title={title} subItem>
+            {children}
+          </NavItemContent>
         </ListItemStyle>
-      );
+      )
     }
 
     return isExternalLink(path) ? (
@@ -75,28 +83,32 @@ export const NavItemSub = forwardRef<HTMLButtonElement & HTMLAnchorElement, NavI
         disableRipple
         rel="noopener"
         target="_blank"
-        component={Link}
+        component={Link as any}
       >
-        <NavItemContent icon={icon} title={title} children={children} subItem />
+        <NavItemContent icon={icon} title={title} subItem>
+          {children}
+        </NavItemContent>
       </ListItemStyle>
     ) : (
       <NextLink href={path} passHref>
         <ListItemStyle disableRipple activeSub={active} subItem>
-          <NavItemContent icon={icon} title={title} children={children} subItem />
+          <NavItemContent icon={icon} title={title} subItem>
+            {children}
+          </NavItemContent>
         </ListItemStyle>
       </NextLink>
-    );
+    )
   }
-);
+)
 
 // ----------------------------------------------------------------------
 
 type NavItemContentProps = {
-  title: string;
-  icon?: ReactElement;
-  children?: { title: string; path: string }[];
-  subItem?: boolean;
-};
+  title: string
+  icon?: ReactElement
+  children?: { title: string; path: string }[]
+  subItem?: boolean
+}
 
 function NavItemContent({ icon, title, children, subItem }: NavItemContentProps) {
   return (
@@ -108,7 +120,7 @@ function NavItemContent({ icon, title, children, subItem }: NavItemContentProps)
             mr: 1,
             width: ICON.NAVBAR_ITEM_HORIZONTAL,
             height: ICON.NAVBAR_ITEM_HORIZONTAL,
-            '& svg': { width: '100%', height: '100%' },
+            "& svg": { width: "100%", height: "100%" },
           }}
         >
           {icon}
@@ -117,7 +129,7 @@ function NavItemContent({ icon, title, children, subItem }: NavItemContentProps)
       {title}
       {children && (
         <Iconify
-          icon={subItem ? 'eva:chevron-right-fill' : 'eva:chevron-down-fill'}
+          icon={subItem ? "eva:chevron-right-fill" : "eva:chevron-down-fill"}
           sx={{
             ml: 0.5,
             width: ICON.NAVBAR_ITEM_HORIZONTAL,
@@ -126,5 +138,5 @@ function NavItemContent({ icon, title, children, subItem }: NavItemContentProps)
         />
       )}
     </>
-  );
+  )
 }

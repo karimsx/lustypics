@@ -25,9 +25,9 @@ const initialState: SettingsContextProps = {
   onToggleStretch: () => {},
   onChangeLayout: () => {},
   onResetSetting: () => {},
-  setColor: defaultPreset,
+  setColor: defaultPreset as any,
   colorOption: [],
-}
+} as any
 
 const SettingsContext = createContext(initialState)
 
@@ -105,7 +105,7 @@ function SettingsProvider({
         onChangeDirection,
         // Color
         onChangeColor,
-        setColor: getColorPresets(settings.themeColorPresets),
+        setColor: getColorPresets(settings.themeColorPresets) as any,
         colorOption: colorPresets.map((color) => ({
           name: color.name,
           value: color.main,

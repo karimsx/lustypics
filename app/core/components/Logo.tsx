@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 // @mui
 import {styled, useTheme} from '@mui/material/styles';
 import {Box, BoxProps, Link, Toolbar} from '@mui/material';
-import {HEADER} from "./config";
+import {HEADER} from "../config";
 
 // ----------------------------------------------------------------------
 
