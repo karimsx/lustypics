@@ -9,10 +9,13 @@ import SearchIcon from "@mui/icons-material/Search"
 import MoreIcon from "@mui/icons-material/MoreVert"
 import { useState } from "react"
 import Link from "next/link"
+import { useMutation } from "@blitzjs/rpc"
+import logout from "../../auth/mutations/logout"
 
 export const AuthUserMenu = () => {
   const user = useCurrentUser()
-  
+  const [logoutMutation] = useMutation(logout)
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null)
 
@@ -30,6 +33,10 @@ export const AuthUserMenu = () => {
   const handleMenuClose = () => {
     setAnchorEl(null)
     handleMobileMenuClose()
+  }
+
+  const handleLogout = async () => {
+    await logoutMutation()
   }
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -61,6 +68,9 @@ export const AuthUserMenu = () => {
       </Link>
       <Link href={"/user/galleries"}>
         <MenuItem onClick={handleMenuClose}>My Galleries</MenuItem>
+      </Link>
+      <Link href={"/user/galleries"}>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Link>
     </Menu>
   )

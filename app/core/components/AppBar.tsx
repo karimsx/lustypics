@@ -109,7 +109,7 @@ export default function PrimaryAppBar() {
               <Button color="inherit">Members</Button>
             </Link>
 
-            {!user ?? (
+            {!user && (
               <>
                 <Link href="/auth/signup">
                   <Button color="inherit">Signup</Button>
@@ -121,7 +121,11 @@ export default function PrimaryAppBar() {
               </>
             )}
 
-            <AuthUserMenu />
+            {user && (
+              <>
+                <AuthUserMenu />
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
