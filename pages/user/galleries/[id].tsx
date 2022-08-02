@@ -19,6 +19,7 @@ import {
   Skeleton,
   Stack,
   Typography,
+  Link as ReactLink,
 } from "@mui/material"
 import { Delete, Edit, Title } from "@mui/icons-material"
 import PrimaryAppBar from "app/core/components/AppBar"
@@ -27,12 +28,32 @@ import { GenericHeader } from "app/core/components/GenericHeader"
 import dynamic from "next/dynamic"
 
 import "tui-image-editor/dist/tui-image-editor.css"
+import { faker } from "@faker-js/faker"
 
 let ImageEditor = dynamic(() => import("@toast-ui/react-image-editor"), {
   ssr: false,
 })
 
 const EditGallery = () => {
+  const getImagesMock = () => [
+    {
+      original: faker.image.abstract(640, 480, true),
+      thumbnail: faker.image.abstract(640, 480, true),
+    },
+    {
+      original: faker.image.abstract(640, 480, true),
+      thumbnail: faker.image.abstract(640, 480, true),
+    },
+    {
+      original: faker.image.abstract(640, 480, true),
+      thumbnail: faker.image.abstract(640, 480, true),
+    },
+    {
+      original: faker.image.abstract(640, 480, true),
+      thumbnail: faker.image.abstract(640, 480, true),
+    },
+  ]
+
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
   const images = [1, 2, 3, 4]
 
@@ -45,18 +66,56 @@ const EditGallery = () => {
       <GenericHeader primaryText="Edit gallery" secondaryText="gallery name" />
 
       <Container>
-        <ImageEditor />
+        <ImageEditor
+          includeUI={{
+            loadImage: {
+              path: "img/sampleImage.jpg",
+              name: "SampleImage",
+            },
+            theme: myTheme,
+            menu: ["shape", "filter"],
+            initMenu: "filter",
+            uiSize: {
+              width: "1000px",
+              height: "700px",
+            },
+            menuBarPosition: "bottom",
+          }}
+          cssMaxHeight={500}
+          cssMaxWidth={700}
+          selectionStyle={{
+            cornerSize: 20,
+            rotatingPointOffset: 70,
+          }}
+          usageStatistics={true}
+        />
         {cards.map((card) => (
           <Box mt={2}>
-            <Grid spacing={3} container>
-              {images.map((card) => (
-                <Grid item xs={12} md={3}>
-                  <Card>
-                    <Skeleton variant="rectangular" height={118} />
-                  </Card>
+            <Paper elevation={5}>
+              <Box p={2} mb={3}>
+                <Typography> Lorem ipsum, dolor sit amet consectetur adipisicing elit </Typography>
+
+                <Grid container>
+                  {getImagesMock().map((image) => (
+                    <Grid item md={3}>
+                      <Link href="/galleries/1" passHref>
+                        <ReactLink>
+                          <Box
+                            sx={{
+                              backgroundImage: `url(${image.original})`,
+                              backgroundOrigin: "center",
+                              backgroundPosition: "center",
+                              height: "300px",
+                              mr: 2,
+                            }}
+                          />
+                        </ReactLink>
+                      </Link>
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
-            </Grid>
+              </Box>
+            </Paper>
           </Box>
         ))}
 
