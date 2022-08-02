@@ -5,7 +5,7 @@ import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
-import { useMutation } from "@blitzjs/rpc"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
 import {
   Button,
@@ -30,6 +30,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
 import { faker } from "@faker-js/faker"
 import getCurrentUser from "app/users/queries/getCurrentUser"
+import getGalleries from "app/galleries/queries/getGalleries"
 
 const getImagesMock = () => [
   {
@@ -49,6 +50,19 @@ const getImagesMock = () => [
 const Home = () => {
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
   const user = useCurrentUser()
+
+  const [latestGalleries] = useQuery(getGalleries, {
+    page: 0,
+    perPage: 0,
+    filterType: "lasted",
+  })
+
+  const [mostViewedGalleries] = useQuery(getGalleries, {
+    page: 0,
+    perPage: 0,
+    filterType: "lasted",
+  })
+
   return (
     <Layout>
       <Container>
@@ -105,8 +119,7 @@ const Home = () => {
                     <Link href="/galleries" passHref>
                       <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
                         <Typography>
-                          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                          Dolorem dolo
+                          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem dolo
                         </Typography>
                       </ReactLink>
                     </Link>
