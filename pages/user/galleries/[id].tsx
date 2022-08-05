@@ -89,12 +89,11 @@ const EditGallery = () => {
           }}
           usageStatistics={true}
         />
-        {cards.map((card) => (
-          <Box mt={2}>
-            <Paper elevation={5}>
-              <Box p={2} mb={3}>
-                <Typography> Lorem ipsum, dolor sit amet consectetur adipisicing elit </Typography>
 
+        <Paper elevation={5}>
+          {cards.map((card) => (
+            <Box mt={2}>
+              <Box p={2} mb={3}>
                 <Grid container>
                   {getImagesMock().map((image) => (
                     <Grid item md={3}>
@@ -114,10 +113,30 @@ const EditGallery = () => {
                     </Grid>
                   ))}
                 </Grid>
+
+                <Grid mt={2} container>
+                  {getImagesMock().map((image) => (
+                    <Grid item md={3}>
+                      <Link href="/galleries/1" passHref>
+                        <ReactLink>
+                          <Box
+                            sx={{
+                              backgroundImage: `url(${image.original})`,
+                              backgroundOrigin: "center",
+                              backgroundPosition: "center",
+                              height: "300px",
+                              mr: 2,
+                            }}
+                          />
+                        </ReactLink>
+                      </Link>
+                    </Grid>
+                  ))}
+                </Grid>
               </Box>
-            </Paper>
-          </Box>
-        ))}
+            </Box>
+          ))}
+        </Paper>
 
         <Box my={4} display={"flex"} justifyContent="center">
           <Pagination count={10}></Pagination>

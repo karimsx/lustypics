@@ -1,10 +1,15 @@
 import { Ctx } from "blitz"
 import db from "db"
 
-export default async function getGallery(_ = null, { session }: Ctx) {
+export default async function getGallery({ id }: { id: number }, { session }: Ctx) {
   const gallery = await db.gallery.findUnique({
     where: {
-      id: 1,
+      id,
+    },
+    include: {
+      files: true,
+      owner: true,
+      tags: true,
     },
   })
 

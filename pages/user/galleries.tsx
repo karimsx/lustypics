@@ -116,7 +116,7 @@ const MyGalleries = () => {
                   <IconButton color="error">
                     <Delete />
                   </IconButton>
-                  <Link href="/user/galleries/1">
+                  <Link href={`/user/galleries/${gallery.id}`}>
                     <IconButton color="primary">
                       <Edit />
                     </IconButton>
