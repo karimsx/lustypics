@@ -2,6 +2,7 @@ import SimpleBarReact, { Props as ScrollbarProps } from "simplebar-react"
 // @mui
 import { alpha, styled } from "@mui/material/styles"
 import { Box, SxProps } from "@mui/material"
+import { ReactNode } from "react"
 
 // ----------------------------------------------------------------------
 
@@ -46,7 +47,7 @@ export default function Scrollbar({ children, sx, ...other }: Props) {
   if (isMobile) {
     return (
       <Box sx={{ overflowX: "auto", ...sx }} {...other}>
-        {children}
+        {children as ReactNode}
       </Box>
     )
   }

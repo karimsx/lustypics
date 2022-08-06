@@ -8,7 +8,6 @@ export class S3Service {
   private s3: S3;
 
   private constructor() {
-    this.s3 = new S"
   }
 
   public static getInstance(): S3Service {

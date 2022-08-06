@@ -1,4 +1,4 @@
-import { Suspense } from "react"
+import { ReactNode, Suspense } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Layout from "app/core/layouts/Layout"
@@ -30,7 +30,7 @@ import dynamic from "next/dynamic"
 import "tui-image-editor/dist/tui-image-editor.css"
 import { faker } from "@faker-js/faker"
 
-let ImageEditor = dynamic(() => import("@toast-ui/react-image-editor"), {
+let ImageEditor: any = dynamic<ReactNode>(() => import("@toast-ui/react-image-editor"), {
   ssr: false,
 })
 
