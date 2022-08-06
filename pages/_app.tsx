@@ -15,6 +15,7 @@ import ThemeColorPresets from "app/core/components/ThemeColorPresets"
 import ThemeLocalization from "app/core/components/ThemeLocalization"
 import ProgressBar from "app/core/components/ProgressBar"
 import DialogProvider from "app/core/contexts/DialogContext"
+import 'simplebar-react/dist/simplebar.min.css';
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {
