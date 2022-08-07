@@ -50,24 +50,6 @@ const MyGalleries = () => {
   })
   const [createGalleryMutation] = useMutation(createGallery)
   const [createDialog] = useDialog()
-  const getImagesMock = () => [
-    {
-      original: faker.image.abstract(640, 480, true),
-      thumbnail: faker.image.abstract(640, 480, true),
-    },
-    {
-      original: faker.image.abstract(640, 480, true),
-      thumbnail: faker.image.abstract(640, 480, true),
-    },
-    {
-      original: faker.image.abstract(640, 480, true),
-      thumbnail: faker.image.abstract(640, 480, true),
-    },
-    {
-      original: faker.image.abstract(640, 480, true),
-      thumbnail: faker.image.abstract(640, 480, true),
-    },
-  ]
 
   const handleNewGallery = async () => {
     await createGalleryMutation({})
@@ -93,13 +75,13 @@ const MyGalleries = () => {
                   <Typography> {gallery.name}</Typography>
 
                   <Grid container>
-                    {getImagesMock().map((image) => (
+                    {gallery.files?.slice(0, 4).map((file) => (
                       <Grid item md={3}>
                         <Link href={`/user/galleries/${gallery.id}`} passHref>
                           <ReactLink>
                             <Box
                               sx={{
-                                backgroundImage: `url(${image.original})`,
+                                backgroundImage: `url(${file.signedUrl})`,
                                 backgroundOrigin: "center",
                                 backgroundPosition: "center",
                                 height: "300px",
