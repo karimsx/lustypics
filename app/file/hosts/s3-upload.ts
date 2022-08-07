@@ -1,13 +1,35 @@
-import { S3 } from "aws-sdk"
+import AWS, { S3 } from "aws-sdk"
 import { v4 as uuid } from "uuid"
-import fs from "fs"
 
 export class S3Service {
-  private defaultBucket: string = "euwest"
+  private defaultBucket: string;
   private static instance: S3Service
-  private s3: S3;
+  private s3: S3
 
   private constructor() {
+
+    if (process.env.S3_SECRET == undefined) throw new Error("S3_SECRET should be defined to use s3")
+    if (process.env.S3_ACCESS_ID == undefined) throw new Error("S3_ACCESS_ID should be defined to use s3")
+    if (process.env.S3_REGION == undefined) throw new Error("S3_REGION should be defined to use s3")
+    if (process.env.S3_VERSION == undefined) throw new Error("S3_VERSION should be defined to use s3")
+    if (process.env.S3_BUCKET == undefined) throw new Error("S3_BUCKET should be defined to use s3")
+
+    AWS.config.update({
+      accessKeyId: process.env.S3_ACCESS_ID,
+      secretAccessKey: process.env.S3_SECRET,
+      region: process.env.S3_REGION,
+    })
+
+    this.defaultBucket = process.env.S3_BUCKET
+
+    this.s3 = new S3({
+      region: process.env.S3_REGION,
+      apiVersion: process.env.S3_VERSION,
+      credentials: {
+        accessKeyId: process.env.S3_ACCESS_ID,
+        secretAccessKey: process.env.S3_SECRET
+      }
+    })
   }
 
   public static getInstance(): S3Service {
@@ -22,7 +44,7 @@ export class S3Service {
     const params = {
       ...s3Params,
       Bucket: s3Params?.Bucket || this.defaultBucket,
-      Key: key,
+      Key: key
     }
 
     return this.s3.getSignedUrl("getObject", params)
@@ -36,7 +58,7 @@ export class S3Service {
   async read(key: string, s3Params?: any): Promise<string | undefined> {
     const params = {
       Bucket: s3Params?.Bucket || this.defaultBucket,
-      Key: key,
+      Key: key
     }
 
     const object = await this.s3.getObject(params).promise()
@@ -51,7 +73,7 @@ export class S3Service {
     const params: S3.PutObjectRequest = {
       Bucket: s3Params?.Bucket || this.defaultBucket,
       Key: uuid(),
-      Body: fileStream,
+      Body: fileStream
     }
 
     return new Promise((resolve, reject) => {

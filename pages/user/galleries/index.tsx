@@ -29,7 +29,7 @@ import { GenericHeader } from "app/core/components/GenericHeader"
 import { faker } from "@faker-js/faker"
 import createGallery from "app/galleries/mutations/createGallery"
 
-import { useDialog } from "../../app/core/contexts/DialogContext"
+import { useDialog } from "../../../app/core/contexts/DialogContext"
 import getGalleries from "app/galleries/queries/getGalleries"
 import { useSession } from "@blitzjs/auth"
 /*

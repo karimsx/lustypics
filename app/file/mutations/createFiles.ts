@@ -9,7 +9,8 @@ import { S3Service } from "../hosts/s3-upload"
 
 export const CreateFilesZod = z.array(z.object({
   name: z.string(),
-  data64: z.string()
+  data64: z.string(),
+  galleryIndex: z.number().int().positive().optional(),
 }))
 
 export default resolver.pipe(

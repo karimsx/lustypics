@@ -1,6 +1,5 @@
 import { ReactNode, useCallback, useRef } from "react"
-import Link from "next/link"
-import { Container, Grid, Link as ReactLink, Pagination, Paper } from "@mui/material"
+import { Container, Grid, Paper } from "@mui/material"
 import { Box } from "@mui/system"
 import { GenericHeader } from "app/core/components/GenericHeader"
 import dynamic from "next/dynamic"
@@ -9,12 +8,18 @@ import "tui-image-editor/dist/tui-image-editor.css"
 import { faker } from "@faker-js/faker"
 import Scrollbar from "../../../app/core/components/Scrollbar"
 import Dropzone from "react-dropzone"
+import { useMutation } from "@blitzjs/rpc"
+import createFiles from "../../../app/file/mutations/createFiles"
+import { fileToBase64 } from "../../../app/core/utils/fileToBase64"
 
 let ImageEditor: any = dynamic<ReactNode>(() => import("@toast-ui/react-image-editor"), {
   ssr: false
 })
 
 const EditGallery = () => {
+
+  const [createFilesMutation] = useMutation(createFiles)
+
   const getImagesMock = useCallback(() => [
     {
       original: faker.image.abstract(640, 480, true),
@@ -42,20 +47,28 @@ const EditGallery = () => {
     "header.display": "none"
   }
 
-  const onDrop = useCallback(acceptedFiles => {
-    console.log(acceptedFiles)
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+
+    for (let i = 0; i < acceptedFiles.length; ++i) {
+      await createFilesMutation([{
+        galleryIndex: 1,
+        data64: await fileToBase64(acceptedFiles[i]),
+        name: acceptedFiles[i]?.name || ""
+      }])
+    }
+
   }, [])
 
   const handleSelectImage = (evt, image) => {
-    evt.stopPropagation();
-    evt.preventDefault();
+    evt.stopPropagation()
+    evt.preventDefault()
   }
 
   return (
     <>
       <GenericHeader primaryText="Edit gallery" secondaryText="gallery name" />
 
-      <Container sx={{mt: 3}}>
+      <Container sx={{ mt: 3 }}>
         <ImageEditor
           ref={editorRef}
           includeUI={{
@@ -75,10 +88,10 @@ const EditGallery = () => {
           usageStatistics={true}
         />
 
-        <Paper sx={{my: 3}} elevation={5}>
+        <Paper sx={{ my: 3 }} elevation={5}>
           <Scrollbar sx={{ mt: 4, maxHeight: 600 }}>
             <Dropzone onDrop={onDrop}>
-              {({getRootProps, getInputProps}) => (
+              {({ getRootProps, getInputProps }) => (
                 <div {...getRootProps()}>
                   <input {...getInputProps()} />
                   <p>Drag and drop some files here, or click to select files</p>
@@ -89,18 +102,18 @@ const EditGallery = () => {
                         <Grid container>
                           {getImagesMock().map((image) => (
                             <Grid item md={3}>
-                                  <Box
-                                    onClick={(evt) => handleSelectImage(evt, image.original)}
-                                    sx={{
-                                      backgroundImage: `url(${image.original})`,
-                                      backgroundOrigin: "center",
-                                      backgroundPosition: "center",
-                                      height: "300px",
-                                      mr: 2,
-                                      cursor: "pointer"
+                              <Box
+                                onClick={(evt) => handleSelectImage(evt, image.original)}
+                                sx={{
+                                  backgroundImage: `url(${image.original})`,
+                                  backgroundOrigin: "center",
+                                  backgroundPosition: "center",
+                                  height: "300px",
+                                  mr: 2,
+                                  cursor: "pointer"
 
-                                    }}
-                                  />
+                                }}
+                              />
                             </Grid>
                           ))}
                         </Grid>
