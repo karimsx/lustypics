@@ -71,6 +71,7 @@ model File {
   ownerId   Int
   gallery   Gallery?  @relation(fields: [galleryId], references: [id])
   galleryId Int?
+  galleryIndex Int?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?

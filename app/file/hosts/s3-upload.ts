@@ -52,7 +52,6 @@ export class S3Service {
       Bucket: s3Params?.Bucket || this.defaultBucket,
       Key: uuid(),
       Body: fileStream,
-      ContentType: contentType,
     }
 
     return new Promise((resolve, reject) => {
