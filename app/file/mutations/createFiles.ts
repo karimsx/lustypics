@@ -21,7 +21,7 @@ export default resolver.pipe(
     const s3 = S3Service.getInstance()
     const filesReturned: File[] = []
     for(let file of files) {
-      const fileContents = Buffer.from(file.data64, 'base64')
+      const fileContents = Buffer.from(file.data64.replace(/^data:image\/.*;base64,/, ""), 'base64')
       const instance = await s3.upload({ fileStream: fileContents, contentType: ''})
 
       const dbFile = await db.file.create({
