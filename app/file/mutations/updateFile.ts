@@ -19,7 +19,8 @@ export default resolver.pipe(
     let newInstance
 
     if (data64) {
-      newInstance = await s3.upload({ fileStream: data64, contentType: "" })
+      const fileContents = Buffer.from(data64, 'base64')
+      newInstance = await s3.upload({ fileStream: fileContents, contentType: "" })
     }
 
     const dbFile = await db.file.update({
