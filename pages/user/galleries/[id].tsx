@@ -55,7 +55,7 @@ const EditGallery = () => {
     <>
       <GenericHeader primaryText="Edit gallery" secondaryText="gallery name" />
 
-      <Container>
+      <Container sx={{mt: 3}}>
         <ImageEditor
           ref={editorRef}
           includeUI={{
@@ -63,13 +63,11 @@ const EditGallery = () => {
             menu: ["shape", "filter"],
             initMenu: "filter",
             uiSize: {
-              width: "1000px",
-              height: "700px"
+              width: "100%",
+              height: "800px"
             },
             menuBarPosition: "bottom"
           }}
-          cssMaxHeight={500}
-          cssMaxWidth={700}
           selectionStyle={{
             cornerSize: 20,
             rotatingPointOffset: 70
