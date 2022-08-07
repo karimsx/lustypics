@@ -19,7 +19,7 @@ export default resolver.pipe(
     let newInstance
 
     if (data64) {
-      const fileContents = Buffer.from(data64, 'base64')
+      const fileContents = Buffer.from(data64.replace(/^data:image\/.*;base64,/, ""), 'base64')
       newInstance = await s3.upload({ fileStream: fileContents, contentType: "" })
     }
 

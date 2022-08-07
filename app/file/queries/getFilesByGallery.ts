@@ -17,7 +17,9 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({galleryId}, ctx) => {
 
-    return db.file.findMany({
+    const s3 = S3Service.getInstance()
+
+    const files = await db.file.findMany({
       where: {
         galleryId,
       },
@@ -25,5 +27,14 @@ export default resolver.pipe(
         galleryIndex: 'asc'
       }
     })
+
+    return files.map(file =>({
+      ...file,
+      signedUrl: s3.getObjectSignedUrl(file.key)
+    }))
+
+
+
+
   }
 )

@@ -8,9 +8,11 @@ import "tui-image-editor/dist/tui-image-editor.css"
 import { faker } from "@faker-js/faker"
 import Scrollbar from "../../../app/core/components/Scrollbar"
 import Dropzone from "react-dropzone"
-import { useMutation } from "@blitzjs/rpc"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import createFiles from "../../../app/file/mutations/createFiles"
 import { fileToBase64 } from "../../../app/core/utils/fileToBase64"
+import getFilesByGallery from "../../../app/file/queries/getFilesByGallery"
+import { useRouter } from "next/router"
 
 let ImageEditor: any = dynamic<ReactNode>(() => import("@toast-ui/react-image-editor"), {
   ssr: false
@@ -18,6 +20,10 @@ let ImageEditor: any = dynamic<ReactNode>(() => import("@toast-ui/react-image-ed
 
 const EditGallery = () => {
 
+  const router = useRouter()
+  const { id } = router.query
+
+  const [files, {refetch: refetchFiles}] = useQuery(getFilesByGallery, {galleryId: parseInt(id as string)})
   const [createFilesMutation] = useMutation(createFiles)
 
   const getImagesMock = useCallback(() => [
@@ -41,7 +47,6 @@ const EditGallery = () => {
   const editorRef = useRef(null)
 
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
-  const images = [1, 2, 3, 4]
 
   const myTheme = {
     "header.display": "none"
@@ -53,15 +58,20 @@ const EditGallery = () => {
       await createFilesMutation([{
         galleryIndex: 1,
         data64: await fileToBase64(acceptedFiles[i]),
-        name: acceptedFiles[i]?.name || ""
+        name: acceptedFiles[i]?.name || "",
+        galleryId: parseInt(id as string)
       }])
     }
+
+    await refetchFiles()
+
 
   }, [])
 
   const handleSelectImage = (evt, image) => {
     evt.stopPropagation()
     evt.preventDefault()
+
   }
 
   return (
@@ -96,20 +106,20 @@ const EditGallery = () => {
                   <input {...getInputProps()} />
                   <p>Drag and drop some files here, or click to select files</p>
 
-                  {cards.map((card) => (
                     <Box mt={2}>
                       <Box p={2} mb={3}>
                         <Grid container>
-                          {getImagesMock().map((image) => (
-                            <Grid item md={3}>
+                          {files.map((file) => (
+                            <Grid key={file.id} item md={3}>
                               <Box
-                                onClick={(evt) => handleSelectImage(evt, image.original)}
+                                onClick={(evt) => handleSelectImage(evt, null)}
                                 sx={{
-                                  backgroundImage: `url(${image.original})`,
+                                  backgroundImage: `url(${file.signedUrl})`,
                                   backgroundOrigin: "center",
                                   backgroundPosition: "center",
                                   height: "300px",
                                   mr: 2,
+                                  mb: 2,
                                   cursor: "pointer"
 
                                 }}
@@ -120,7 +130,6 @@ const EditGallery = () => {
 
                       </Box>
                     </Box>
-                  ))}
                 </div>
               )}
 

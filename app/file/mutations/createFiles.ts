@@ -11,6 +11,7 @@ export const CreateFilesZod = z.array(z.object({
   name: z.string(),
   data64: z.string(),
   galleryIndex: z.number().int().positive().optional(),
+  galleryId: z.number().int().positive().optional(),
 }))
 
 export default resolver.pipe(
@@ -28,7 +29,8 @@ export default resolver.pipe(
         data: {
           ownerId: ctx.session.userId,
           key: instance.Key,
-          name: file.name
+          name: file.name,
+          galleryId: file.galleryId,
         }
       })
 
