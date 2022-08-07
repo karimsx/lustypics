@@ -13,6 +13,7 @@ import createFiles from "../../../app/file/mutations/createFiles"
 import { fileToBase64 } from "../../../app/core/utils/fileToBase64"
 import getFilesByGallery from "../../../app/file/queries/getFilesByGallery"
 import { useRouter } from "next/router"
+import { SelectableImage } from "../../../app/galleries/components/SelectableImage"
 
 let ImageEditor: any = dynamic<ReactNode>(() => import("@toast-ui/react-image-editor"), {
   ssr: false
@@ -26,27 +27,7 @@ const EditGallery = () => {
   const [files, {refetch: refetchFiles}] = useQuery(getFilesByGallery, {galleryId: parseInt(id as string)})
   const [createFilesMutation] = useMutation(createFiles)
 
-  const getImagesMock = useCallback(() => [
-    {
-      original: faker.image.abstract(640, 480, true),
-      thumbnail: faker.image.abstract(640, 480, true)
-    },
-    {
-      original: faker.image.abstract(640, 480, true),
-      thumbnail: faker.image.abstract(640, 480, true)
-    },
-    {
-      original: faker.image.abstract(640, 480, true),
-      thumbnail: faker.image.abstract(640, 480, true)
-    },
-    {
-      original: faker.image.abstract(640, 480, true),
-      thumbnail: faker.image.abstract(640, 480, true)
-    }
-  ], [])
   const editorRef = useRef(null)
-
-  const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
 
   const myTheme = {
     "header.display": "none"
@@ -98,7 +79,7 @@ const EditGallery = () => {
           usageStatistics={true}
         />
 
-        <Paper sx={{ my: 3 }} elevation={5}>
+        <Paper sx={{ my: 3 }} elevation={8}>
           <Scrollbar sx={{ mt: 4, maxHeight: 600 }}>
             <Dropzone onDrop={onDrop}>
               {({ getRootProps, getInputProps }) => (
@@ -111,19 +92,7 @@ const EditGallery = () => {
                         <Grid container>
                           {files.map((file) => (
                             <Grid key={file.id} item md={3}>
-                              <Box
-                                onClick={(evt) => handleSelectImage(evt, null)}
-                                sx={{
-                                  backgroundImage: `url(${file.signedUrl})`,
-                                  backgroundOrigin: "center",
-                                  backgroundPosition: "center",
-                                  height: "300px",
-                                  mr: 2,
-                                  mb: 2,
-                                  cursor: "pointer"
-
-                                }}
-                              />
+                                <SelectableImage url={file.signedUrl} handleSelectImage={handleSelectImage}/>
                             </Grid>
                           ))}
                         </Grid>
