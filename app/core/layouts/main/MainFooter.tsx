@@ -13,7 +13,7 @@ import SocialsButton from "../../components/SocialsButton"
 
 const LINKS = [
   {
-    headline: "Minimal",
+    headline: "Get in touch",
     children: [
       { name: "About us", href: PATH_PAGE.about },
       { name: "Contact us", href: PATH_PAGE.contact },
@@ -25,20 +25,21 @@ const LINKS = [
     children: [
       { name: "Terms and Condition", href: "#" },
       { name: "Privacy Policy", href: "#" },
+      { name: "Child Protection", href: "#" },
+      { name: "Addiction help", href: "#" },
+
     ],
   },
   {
     headline: "Contact",
     children: [
-      { name: "support@minimals.cc", href: "#" },
-      { name: "Los Angeles, 359  Hidden Valley Road", href: "#" },
+      { name: "lustypics@protonmail.com", href: "#" },
     ],
   },
 ]
 
 const RootStyle = styled("div")(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.grey[200],
 }))
 
 // ----------------------------------------------------------------------
@@ -54,23 +55,13 @@ export default function MainFooter() {
           sx={{ textAlign: { xs: "center", md: "left" } }}
         >
           <Grid item xs={12} sx={{ mb: 3 }}>
-            /!*
-            <Logo sx={{ mx: { xs: "auto", md: "inherit" } }} />
-            *!/
+            <Typography color={"primary"} variant={"h3"}> LustyPics </Typography>
           </Grid>
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
+              The next generation adult image sharing, for all your desires <br/>
+              The best and hight resolution  amateur, professional, fetish, and all other categories available on lustypic.com
             </Typography>
-
-            <Stack
-              direction="row"
-              justifyContent={{ xs: "center", md: "flex-start" }}
-              sx={{ mt: 5, mb: { xs: 5, md: 0 } }}
-            >
-              <SocialsButton sx={{ mx: 0.5 }} />
-            </Stack>
           </Grid>
 
           <Grid item xs={12} md={7}>

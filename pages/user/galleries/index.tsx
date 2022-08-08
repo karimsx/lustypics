@@ -47,8 +47,6 @@ const MyGalleries = () => {
   const [createGalleryMutation] = useMutation(createGallery)
   const [deleteGalleryMutation] = useMutation(deleteGallery)
 
-  const [createDialog] = useDialog()
-
   const handleNewGallery = async () => {
     const gallery = await createGalleryMutation({})
     await router.push('/user/galleries/' + gallery.id)
