@@ -1405,10 +1405,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@blitzjs/auth@2.0.0-alpha.64":
-  version "2.0.0-alpha.64"
-  resolved "https://registry.yarnpkg.com/@blitzjs/auth/-/auth-2.0.0-alpha.64.tgz#02dc38283490dffeace4b1c2c53162973fe6197d"
-  integrity sha512-EhIm0BpVeZfaTvdvXCHnXtYSwDqMpEhF+kss0+/fcqwXpZ1v7jxB7usdHtVJCaXPVMGiqqjGbVbjdNL8OdjgkQ==
+"@blitzjs/auth@2.0.0-danger.67", "@blitzjs/auth@^2.0.0-alpha.67":
+  version "2.0.0-danger.67"
+  resolved "https://registry.yarnpkg.com/@blitzjs/auth/-/auth-2.0.0-danger.67.tgz#0993fc91942a027445287dca223bacfd9b609ba7"
+  integrity sha512-WLF9zjZh3NU8p991U1YdM3vml8tyeFTwZhuoVox9JkgF1rQcGGHda+2/tpomvKAaLbUHOZAu5nxt5LP5sq6gSw==
   dependencies:
     "@types/b64-lite" "1.3.0"
     "@types/cookie-session" "2.0.44"
@@ -1416,7 +1416,7 @@
     "@types/secure-password" "3.1.1"
     b64-lite "1.4.0"
     bad-behavior "1.0.1"
-    blitz "2.0.0-alpha.64"
+    blitz "2.0.0-danger.67"
     cookie "0.4.1"
     cookie-session "2.0.0"
     debug "4.3.3"
@@ -1426,12 +1426,13 @@
     passport "0.5.2"
     path "0.12.7"
     secure-password "4.0.0"
+    supports-color "8"
     url "0.11.0"
 
-"@blitzjs/generator@2.0.0-alpha.64":
-  version "2.0.0-alpha.64"
-  resolved "https://registry.yarnpkg.com/@blitzjs/generator/-/generator-2.0.0-alpha.64.tgz#7462001c6c3c5daa05a785cfd9b1797d5a120691"
-  integrity sha512-6hCm4/WadH9HIdErKW/xptELTqv1N4GN7tUDTQhdelZzGLL8TEDkrNg+p7H+6g0iyVI5/6l5FBiKGZptkuqQ9g==
+"@blitzjs/generator@2.0.0-danger.67":
+  version "2.0.0-danger.67"
+  resolved "https://registry.yarnpkg.com/@blitzjs/generator/-/generator-2.0.0-danger.67.tgz#52909d22d1c697cd867a979b5b8b3cb3cdaafac3"
+  integrity sha512-EW9saKFyJgN+O/Oe6nmD7a97l5gZgBY5xP+hxx/sPFst3M6CparQFye4dX5ObED1hipotxcS1iflEewGou0E/w==
   dependencies:
     "@babel/core" "7.12.10"
     "@babel/plugin-transform-typescript" "7.12.1"
@@ -1453,35 +1454,38 @@
     pluralize "8.0.0"
     prettier "^2.5.1"
     recast "0.20.5"
+    supports-color "8"
     tslog "3.3.1"
     username "5.1.0"
     vinyl "2.2.1"
 
-"@blitzjs/next@2.0.0-alpha.64":
-  version "2.0.0-alpha.64"
-  resolved "https://registry.yarnpkg.com/@blitzjs/next/-/next-2.0.0-alpha.64.tgz#57c3ad4d7b8866e53724804641feadf1d22dcf31"
-  integrity sha512-6RFbYTGMcj+tzkZSPWJFZlRiIrmVzb2p/bwZLbbKiRotOlzwsKE+Un7i5U0b5g2yl3RNsr/XXm8l1PhL/iVEqQ==
+"@blitzjs/next@^2.0.0-alpha.67":
+  version "2.0.0-danger.67"
+  resolved "https://registry.yarnpkg.com/@blitzjs/next/-/next-2.0.0-danger.67.tgz#6272a00ed547ee991d9bbc7cf4283b4cd7499a21"
+  integrity sha512-vaZ8iYzuydRTqohZJPhEyQexcb1nrJi9cmRf1u0ZvoIPZsXpT/Zjpq0pj6FtS29Rr1yrOcrKqh5Ps5LWGoj4Eg==
   dependencies:
-    "@blitzjs/rpc" "2.0.0-alpha.64"
+    "@blitzjs/rpc" "2.0.0-danger.67"
     "@tanstack/react-query" "4.0.10"
     "@types/hoist-non-react-statics" "3.3.1"
     debug "4.3.3"
     fs-extra "10.0.1"
     hoist-non-react-statics "3.3.2"
     superjson "1.8.0"
+    supports-color "8"
 
-"@blitzjs/rpc@2.0.0-alpha.64":
-  version "2.0.0-alpha.64"
-  resolved "https://registry.yarnpkg.com/@blitzjs/rpc/-/rpc-2.0.0-alpha.64.tgz#988df44bc9d3248da3ef1f248b95cfcf7a3a5ffb"
-  integrity sha512-e7rF11Bd0Zhnv/0pPgML1x8JGpmPxnlsFABfawtWZkBEhUaJblrIUHrV08rsvwyzBpKSlgqTojBXfjEw2hmqig==
+"@blitzjs/rpc@2.0.0-danger.67", "@blitzjs/rpc@^2.0.0-alpha.67":
+  version "2.0.0-danger.67"
+  resolved "https://registry.yarnpkg.com/@blitzjs/rpc/-/rpc-2.0.0-danger.67.tgz#967b4e5f8630d47e465d5278d4eb44606f94edeb"
+  integrity sha512-O0N+Fd3Q4aQeGCdGTcXbKBBLUmbbVsL2vAzWqSHm14eh8mpilVvD8/SZdCqZdPYTszSaAd3117ENvMw4kC+B5g==
   dependencies:
-    "@blitzjs/auth" "2.0.0-alpha.64"
+    "@blitzjs/auth" "2.0.0-danger.67"
     "@tanstack/react-query" "4.0.10"
     b64-lite "1.4.0"
     bad-behavior "1.0.1"
     chalk "^4.1.0"
     debug "4.3.3"
     superjson "1.8.0"
+    supports-color "8"
     zod "3.17.3"
 
 "@chevrotain/types@^9.1.0":
@@ -4423,12 +4427,12 @@ bl@^4.0.3:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-blitz@2.0.0-alpha.64:
-  version "2.0.0-alpha.64"
-  resolved "https://registry.yarnpkg.com/blitz/-/blitz-2.0.0-alpha.64.tgz#e97dc6537a8fecbd13eb0c7541093a05c8bae857"
-  integrity sha512-nZJBOXUrZ6/mIFBiH7IujvOhF5xAuFGd3/9dLtEiPYwwtzlcZfzMeyUcLmK+lgnT21o8/4B69/1gp1lgUmefdA==
+blitz@2.0.0-danger.67, blitz@^2.0.0-alpha.67:
+  version "2.0.0-danger.67"
+  resolved "https://registry.yarnpkg.com/blitz/-/blitz-2.0.0-danger.67.tgz#27101a01f7e36b4f1f5f04c8ef589b69ac330030"
+  integrity sha512-paUVgKL/aTwc2EwNjZv73oDFqt3d3u1T2ewcLS7pD4LQSyST3BRfsnxrxmEUMD/UwzS705mDOX33seVdSzufuQ==
   dependencies:
-    "@blitzjs/generator" "2.0.0-alpha.64"
+    "@blitzjs/generator" "2.0.0-danger.67"
     arg "5.0.1"
     boxen "7.0.0"
     chalk "^4.1.0"
@@ -4453,6 +4457,7 @@ blitz@2.0.0-alpha.64:
     resolve-cwd "3.0.0"
     resolve-from "5.0.0"
     superjson "1.8.0"
+    supports-color "8"
     ts-node "10.7.0"
     tsconfig-paths "4.0.0"
     tslog "3.3.1"
@@ -13051,6 +13056,13 @@ superjson@1.8.0:
     debug "^4.3.1"
     lodash.clonedeep "^4.5.0"
 
+supports-color@8, supports-color@^8.0.0:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-8.1.1.tgz#cd6fc17e28500cff56c1b86c0a7fd4a54a73005c"
+  integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
+  dependencies:
+    has-flag "^4.0.0"
+
 supports-color@^5.3.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
@@ -13062,13 +13074,6 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-7.2.0.tgz#1b7dcdcb32b8138801b3e478ba6a51caa89648da"
   integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
-  dependencies:
-    has-flag "^4.0.0"
-
-supports-color@^8.0.0:
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-8.1.1.tgz#cd6fc17e28500cff56c1b86c0a7fd4a54a73005c"
-  integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
   dependencies:
     has-flag "^4.0.0"
 

@@ -23,18 +23,18 @@ export default async function getGalleries(
   switch (filterType) {
     case "lasted": {
       orderBy["createdAt"] = "desc"
-      break;
+      break
     }
     case  "most_viewed": {
       orderBy["views"] = "desc"
-      break;
+      break
     }
   }
 
 
   const galleries = await db.gallery.findMany({
     take: perPage,
-    skip: page * perPage,
+    skip: (page - 1) * perPage,
     orderBy,
     where: {
       ownerId
@@ -50,12 +50,22 @@ export default async function getGalleries(
     }
   })
 
+  const count = await db.gallery.count({
+    orderBy,
+    where: {
+      ownerId
+    }
+  })
 
-  return galleries.map(gallery => ({
-    ...gallery,
-    files: gallery.files?.map(file => ({
-      ...file,
-      signedUrl: s3.getObjectSignedUrl(file.key)
+
+  return {
+    totalPage: Math.floor(count / perPage) + (count % perPage ? 1 : 0),
+    items: galleries.map(gallery => ({
+      ...gallery,
+      files: gallery.files?.map(file => ({
+        ...file,
+        signedUrl: s3.getObjectSignedUrl(file.key)
+      }))
     }))
-  }))
+  }
 }

@@ -1,59 +1,95 @@
-import { Suspense } from "react"
-import Image from "next/image"
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import Layout from "app/core/layouts/Layout"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import logout from "app/auth/mutations/logout"
-import logo from "public/logo.png"
 import { useMutation, useQuery } from "@blitzjs/rpc"
-import { Routes } from "@blitzjs/next"
 import {
   Button,
-  Card,
-  CardContent,
   Container,
+  DialogActions,
+  DialogContent,
   Grid,
   IconButton,
+  Link as ReactLink,
   Pagination,
   Paper,
-  Skeleton,
-  Stack,
-  Typography,
-  useTheme,
-  Link as ReactLink,
+  Typography
 } from "@mui/material"
-import { Delete, Edit, Title } from "@mui/icons-material"
-import PrimaryAppBar from "app/core/components/AppBar"
+import { Delete, Edit } from "@mui/icons-material"
 import { Box } from "@mui/system"
 import { GenericHeader } from "app/core/components/GenericHeader"
-import { faker } from "@faker-js/faker"
 import createGallery from "app/galleries/mutations/createGallery"
 
 import { useDialog } from "../../../app/core/contexts/DialogContext"
 import getGalleries from "app/galleries/queries/getGalleries"
 import { useSession } from "@blitzjs/auth"
-/*
- * This file is just for a pleasant getting started page for your new app.
- * You can delete everything in here and start from scratch if you like.
- */
+import { useRouter } from "next/router"
+import deleteGallery from "../../../app/galleries/mutations/deleteGallery"
+
+import { Gallery } from 'db'
+
 
 const MyGalleries = () => {
-  const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
-  const images = [1, 2, 3, 4]
-  const theme = useTheme()
   const session = useSession()
+  const router = useRouter()
 
-  const [galleries] = useQuery(getGalleries, {
-    page: 0,
-    perPage: 10,
-    ownerId: session.userId as number,
+  const [showDialog, closeDialog] = useDialog()
+  const [pagination, setPagination] = useState({
+      page: 1,
+      perPage: 10,
+      totalPages: 0
+    }
+  )
+
+  const [galleries, { refetch: refetchGalleries }] = useQuery(getGalleries, {
+    page: pagination.page,
+    perPage: pagination.perPage,
+    ownerId: session.userId as number
   })
   const [createGalleryMutation] = useMutation(createGallery)
+  const [deleteGalleryMutation] = useMutation(deleteGallery)
+
   const [createDialog] = useDialog()
 
   const handleNewGallery = async () => {
-    await createGalleryMutation({})
+    const gallery = await createGalleryMutation({})
+    await router.push('/user/galleries/' + gallery.id)
   }
+
+  const handlePageChange = (evt, page: number) => {
+    setPagination((oldValue) => ({
+      ...oldValue,
+      page
+    }))
+  }
+
+  const handleDeleteGallery = (gallery: Gallery) => {
+    showDialog({
+      children: <><DialogContent dividers>
+        <Typography gutterBottom>
+          Are you sure you want to delete the gallery <b>{gallery.name}</b>
+        </Typography>
+      </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDialog} color={"warning"}>
+            Cancel
+          </Button>
+          <Button onClick={async () => {
+            await deleteGalleryMutation(gallery.id)
+            await refetchGalleries()
+            closeDialog()
+          }} color={"error"} variant={"contained"}>
+            Delete
+          </Button>
+        </DialogActions></>
+    })
+  }
+
+
+  useEffect(() => {
+    setPagination((oldValue) => ({
+      ...oldValue,
+      totalPages: galleries.totalPage
+    }))
+  }, [galleries?.totalPage])
 
   return (
     <>
@@ -67,7 +103,7 @@ const MyGalleries = () => {
             New gallery
           </Button>
         </Box>
-        {galleries.map((gallery) => (
+        {galleries.items.map((gallery) => (
           <Box mt={2}>
             <Box mt={2}>
               <Paper elevation={5}>
@@ -86,6 +122,7 @@ const MyGalleries = () => {
                                 backgroundPosition: "center",
                                 height: "300px",
                                 mr: 2,
+                                borderRadius: "10px"
                               }}
                             />
                           </ReactLink>
@@ -95,7 +132,7 @@ const MyGalleries = () => {
                   </Grid>
                 </Box>
                 <Box display="flex" justifyContent={"flex-end"}>
-                  <IconButton color="error">
+                  <IconButton onClick={() => handleDeleteGallery(gallery)} color="error">
                     <Delete />
                   </IconButton>
                   <Link href={`/user/galleries/${gallery.id}`}>
@@ -110,7 +147,7 @@ const MyGalleries = () => {
         ))}
 
         <Box my={4} display={"flex"} justifyContent="center">
-          <Pagination count={10}></Pagination>
+          <Pagination onChange={handlePageChange} count={pagination.totalPages} page={pagination.page}></Pagination>
         </Box>
       </Container>
     </>

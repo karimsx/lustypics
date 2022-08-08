@@ -53,19 +53,18 @@ const Home = () => {
   const router = useRouter()
 
   const [latestGalleries] = useQuery(getGalleries, {
-    page: 0,
+    page: 1,
     perPage: 15,
     filterType: "lasted",
   })
 
   const [mostViewedGalleries] = useQuery(getGalleries, {
-    page: 0,
+    page: 1,
     perPage: 15,
     filterType: "most_viewed",
   })
 
   return (
-    <Layout>
       <Container>
         <Box pt={3}>
           <Typography mb={2} variant="h4" component="h2">
@@ -73,7 +72,7 @@ const Home = () => {
           </Typography>
 
           <Grid spacing={3} container>
-            {latestGalleries.map((gallery) => (
+            {latestGalleries.items.map((gallery) => (
               <Grid item xs={12} md={3}>
                 <Card>
                   <ImageGallery
@@ -150,7 +149,7 @@ const Home = () => {
           </Typography>
 
           <Grid spacing={3} container>
-            {mostViewedGalleries.map((gallery) => (
+            {mostViewedGalleries.items.map((gallery) => (
               <Grid item xs={12} md={3}>
                 <Card>
                   <ImageGallery
@@ -221,7 +220,6 @@ const Home = () => {
           <Button variant="contained"> See More</Button>
         </Stack>
       </Container>
-    </Layout>
   )
 }
 

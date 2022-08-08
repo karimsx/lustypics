@@ -16,6 +16,7 @@ import ThemeLocalization from "app/core/components/ThemeLocalization"
 import ProgressBar from "app/core/components/ProgressBar"
 import DialogProvider from "app/core/contexts/DialogContext"
 import 'simplebar-react/dist/simplebar.min.css';
+import Layout from "../app/core/layouts/Layout"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {
@@ -51,7 +52,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                   <Suspense fallback={<div>Loading</div>}>
                     <PrimaryAppBar />
 
-                    <Component {...pageProps} />
+                    <Layout>
+                      <Component {...pageProps} />
+
+                    </Layout>
                   </Suspense>
                 </DialogProvider>
               </ThemeLocalization>
