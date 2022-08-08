@@ -31,6 +31,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { faker } from "@faker-js/faker"
 import getCurrentUser from "app/users/queries/getCurrentUser"
 import getGalleries from "app/galleries/queries/getGalleries"
+import { useRouter } from "next/router"
 
 const getImagesMock = () => [
   {
@@ -49,18 +50,18 @@ const getImagesMock = () => [
 
 const Home = () => {
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
-  const user = useCurrentUser()
+  const router = useRouter()
 
   const [latestGalleries] = useQuery(getGalleries, {
     page: 0,
-    perPage: 0,
+    perPage: 15,
     filterType: "lasted",
   })
 
   const [mostViewedGalleries] = useQuery(getGalleries, {
     page: 0,
-    perPage: 0,
-    filterType: "lasted",
+    perPage: 15,
+    filterType: "most_viewed",
   })
 
   return (
@@ -72,15 +73,15 @@ const Home = () => {
           </Typography>
 
           <Grid spacing={3} container>
-            {cards.map((card) => (
+            {latestGalleries.map((gallery) => (
               <Grid item xs={12} md={3}>
                 <Card>
                   <ImageGallery
                     showThumbnails={false}
                     showPlayButton={false}
                     showFullscreenButton={false}
-                    onClick={() => {
-                      console.log("clicked")
+                    onClick={async () => {
+                      await router.push(`/galleries/${gallery.id}`)
                     }}
                     renderLeftNav={(onClick, disabled) => {
                       return (
@@ -113,7 +114,7 @@ const Home = () => {
                         </Box>
                       )
                     }}
-                    items={getImagesMock()}
+                    items={gallery?.files?.slice(0,5)?.map(file => ({original: file.signedUrl, thumbnail: file.signedUrl}))}
                   />
                   <CardContent>
                     <Link href="/galleries" passHref>
@@ -149,15 +150,15 @@ const Home = () => {
           </Typography>
 
           <Grid spacing={3} container>
-            {cards.map((card) => (
+            {mostViewedGalleries.map((gallery) => (
               <Grid item xs={12} md={3}>
                 <Card>
                   <ImageGallery
                     showThumbnails={false}
                     showPlayButton={false}
                     showFullscreenButton={false}
-                    onClick={() => {
-                      console.log("clicked")
+                    onClick={async () => {
+                      await router.push(`/galleries/${gallery.id}`)
                     }}
                     renderLeftNav={(onClick, disabled) => {
                       return (
@@ -190,7 +191,7 @@ const Home = () => {
                         </Box>
                       )
                     }}
-                    items={getImagesMock()}
+                    items={gallery?.files?.slice(0,5)?.map(file => ({original: file.signedUrl, thumbnail: file.signedUrl}))}
                   />
                   <CardContent>
                     <Link href="/galleries" passHref>

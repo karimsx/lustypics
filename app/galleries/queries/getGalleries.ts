@@ -18,17 +18,24 @@ export default async function getGalleries(
 
   const s3 = S3Service.getInstance()
 
+  const orderBy = {}
+
+  switch (filterType) {
+    case "lasted": {
+      orderBy["createdAt"] = "desc"
+      break;
+    }
+    case  "most_viewed": {
+      orderBy["views"] = "desc"
+      break;
+    }
+  }
+
+
   const galleries = await db.gallery.findMany({
     take: perPage,
     skip: page * perPage,
-    orderBy:
-      filterType ?? filterType == "lasted"
-        ? {
-          createdAt: "desc"
-        }
-        : {
-          updatedAt: "desc"
-        },
+    orderBy,
     where: {
       ownerId
     },
