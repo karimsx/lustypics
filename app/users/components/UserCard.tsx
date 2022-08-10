@@ -29,7 +29,7 @@ type Props = {
 }
 
 export default function UserCard({ user }: Props) {
-  const { name, cover, position, follower, totalPost, avatarUrl, following } = user
+  const { email: name, cover, position, follower, totalPost, avatarUrl, following } = user
 
   return (
     <Card sx={{ textAlign: "center" }}>
@@ -70,13 +70,11 @@ export default function UserCard({ user }: Props) {
         {name}
       </Typography>
 
-      <Typography variant="body2" sx={{ color: "text.secondary" }}>
+      <Typography mb={2} variant="body2" sx={{ color: "text.secondary" }}>
         {position}
       </Typography>
 
-      <Stack alignItems="center">
-        <SocialsButton initialColor sx={{ my: 2.5 }} />
-      </Stack>
+
 
       <Divider sx={{ borderStyle: "dashed" }} />
 
@@ -97,7 +95,7 @@ export default function UserCard({ user }: Props) {
 
         <div>
           <Typography variant="caption" component="div" sx={{ mb: 0.75, color: "text.disabled" }}>
-            Total Post
+            Total Galleries
           </Typography>
           <Typography variant="subtitle1">{fShortenNumber(totalPost)}</Typography>
         </div>
