@@ -1,11 +1,11 @@
-import { Suspense } from "react"
+import {Suspense, useEffect, useState} from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
-import { useMutation } from "@blitzjs/rpc"
+import {useMutation, useQuery} from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
 import {
   Button,
@@ -19,7 +19,7 @@ import {
   Skeleton,
   Stack,
   Typography,
-  Link as ReactLink,
+  Link as ReactLink, CardMedia,
 } from "@mui/material"
 import { Title } from "@mui/icons-material"
 import PrimaryAppBar from "app/core/components/AppBar"
@@ -29,10 +29,10 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { faker } from "@faker-js/faker"
 import { useRouter } from "next/router"
-/*
- * This file is just for a pleasant getting started page for your new app.
- * You can delete everything in here and start from scratch if you like.
- */
+import getTags from "../../app/galleries/queries/tags/getTags";
+
+import { Tags } from 'db'
+
 const getImagesMock = () => [
   {
     original: faker.image.abstract(640, 480, true),
@@ -54,6 +54,8 @@ const CategoriesPage = () => {
     6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
   ]
 
+  const [tags] = useQuery(getTags, {})
+
   const router = useRouter()
   return (
     <>
@@ -64,54 +66,16 @@ const CategoriesPage = () => {
           </Typography>
 
           <Grid spacing={3} container>
-            {cards.map((card) => (
+            {tags.filter((tag) => !!tag.fileId).map((tag) => (
               <Grid item xs={12} md={3}>
                 <Card>
-                  <ImageGallery
-                    showThumbnails={false}
-                    showPlayButton={false}
-                    showFullscreenButton={false}
-                    onClick={async () => {
-                      console.log("clicked")
-                      await router.push("/galleries")
-                    }}
-                    renderLeftNav={(onClick, disabled) => {
-                      return (
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            zIndex: 4,
-                            top: "calc(50% - 18px)",
-                          }}
-                        >
-                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
-                            <ChevronLeftIcon></ChevronLeftIcon>
-                          </IconButton>
-                        </Box>
-                      )
-                    }}
-                    renderRightNav={(onClick, disabled) => {
-                      return (
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            zIndex: 4,
-                            top: "calc(50% - 18px)",
-                            right: "10px",
-                          }}
-                        >
-                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
-                            <ChevronRightIcon></ChevronRightIcon>
-                          </IconButton>
-                        </Box>
-                      )
-                    }}
-                    items={getImagesMock()}
-                  />
+                  <CardMedia>
+                    <img src={tag?.file?.signedUrl} />
+                  </CardMedia>
                   <CardContent>
                     <Link href="/galleries" passHref>
                       <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
-                        <Typography>Lorem ipsum</Typography>
+                        <Typography>{tag.name}</Typography>
                       </ReactLink>
                     </Link>
                   </CardContent>
@@ -125,11 +89,11 @@ const CategoriesPage = () => {
           </Typography>
 
           <Box display="flex" flexWrap={"wrap"}>
-            {cards.map((card) => (
+            {tags.filter((tag) => !tag.fileId).map((tag) => (
               <Box mr={2} mt={2}>
                 <Chip
                   onClick={async () => router.push("/galleries")}
-                  label={faker.internet.domainWord()}
+                  label={tag.name}
                 />
               </Box>
             ))}
