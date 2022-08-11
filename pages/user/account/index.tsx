@@ -29,9 +29,10 @@ import { GeneralSettingsForm } from "app/users/components/GeneralSettingsForm"
 import { TabContext, TabList, TabPanel } from "@mui/lab"
 import { ChangePasswordForm } from "app/users/components/ChangePasswordForm"
 import { NotificationForm } from "app/users/components/NotificationForm"
-import { TagsForm } from "app/users/components/TagsForm"
+import { TagsForm } from "app/users/components/tagform/TagsForm"
 import { TheatersOutlined } from "@mui/icons-material"
-
+import {useForm} from "react-hook-form";
+import {User}from "db"
 function a11yProps(index: number) {
   return {
     id: `vertical-tab-${index}`,
@@ -39,11 +40,9 @@ function a11yProps(index: number) {
   }
 }
 
-const CategoriesPage = () => {
-  const cards = [
-    0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8, 4, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
-    6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
-  ]
+const UserAccountPage = () => {
+  const user = useCurrentUser()
+  const theme = useTheme()
 
   const [value, setValue] = useState("1")
 
@@ -51,7 +50,6 @@ const CategoriesPage = () => {
     setValue(newValue)
   }
 
-  const theme = useTheme()
 
   return (
     <>
@@ -61,6 +59,8 @@ const CategoriesPage = () => {
         mb={-3}
         py={3}
       >
+
+
         <Container>
           <Typography mb={1} variant="h4" component="h2">
             My account
@@ -95,7 +95,7 @@ const CategoriesPage = () => {
 
             <Grid item md={8}>
               <TabPanel sx={{ p: 0 }} value="1">
-                <GeneralSettingsForm />
+                <GeneralSettingsForm user={user as User}/>
               </TabPanel>
               <TabPanel sx={{ p: 0 }} value="2">
                 <ChangePasswordForm />
@@ -114,4 +114,4 @@ const CategoriesPage = () => {
   )
 }
 
-export default CategoriesPage
+export default UserAccountPage

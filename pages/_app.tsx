@@ -17,6 +17,8 @@ import ProgressBar from "app/core/components/ProgressBar"
 import DialogProvider from "app/core/contexts/DialogContext"
 import 'simplebar-react/dist/simplebar.min.css';
 import Layout from "../app/core/layouts/Layout"
+import {LocalizationProvider} from "@mui/x-date-pickers";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {
@@ -41,28 +43,31 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      <ThemeProvider>
-        <NotistackProvider>
-          <MotionLazyContainer>
-            <ThemeColorPresets>
-              <ThemeLocalization>
-                <ProgressBar />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <ThemeProvider>
+          <NotistackProvider>
+            <MotionLazyContainer>
+              <ThemeColorPresets>
+                <ThemeLocalization>
+                  <ProgressBar />
 
-                <DialogProvider>
-                  <Suspense fallback={<div>Loading</div>}>
-                    <PrimaryAppBar />
+                  <DialogProvider>
+                    <Suspense fallback={<div>Loading</div>}>
+                      <PrimaryAppBar />
 
-                    <Layout>
-                      <Component {...pageProps} />
+                      <Layout>
+                        <Component {...pageProps} />
 
-                    </Layout>
-                  </Suspense>
-                </DialogProvider>
-              </ThemeLocalization>
-            </ThemeColorPresets>
-          </MotionLazyContainer>
-        </NotistackProvider>
-      </ThemeProvider>
+                      </Layout>
+                    </Suspense>
+                  </DialogProvider>
+                </ThemeLocalization>
+              </ThemeColorPresets>
+            </MotionLazyContainer>
+          </NotistackProvider>
+        </ThemeProvider>
+      </LocalizationProvider>
+
     </ErrorBoundary>
   )
 }

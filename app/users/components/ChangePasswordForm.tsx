@@ -25,8 +25,19 @@ import { Box } from "@mui/system"
 import { FormProvider, RHFTextField } from "app/core/components/hook-form"
 import { z } from "zod"
 import Form from "app/core/components/Form"
+import { ChangePassword } from "../../auth/validations"
+import changePassword from "../../auth/mutations/changePassword"
+import { useSnackbar } from "notistack"
+
+const ChangePasswordFormZod = ChangePassword.extend({
+  newPasswordConfirm: z.string(),
+})
 
 export const ChangePasswordForm = () => {
+
+  const [changePasswordMutation] = useMutation(changePassword)
+  const { enqueueSnackbar } = useSnackbar()
+
   return (
     <Paper sx={{ p: 4 }}>
       <Typography mb={1} variant="h5">
@@ -35,15 +46,21 @@ export const ChangePasswordForm = () => {
 
       <Divider sx={{ my: 2 }} />
 
-      <Form submitText="Save" onSubmit={async (values) => {}}>
-        <Typography variant="subtitle2"> Old password </Typography>
-        <RHFTextField hidden name="fullname" />
+      <Form submitText="Save" onSubmit={async ({currentPassword, newPassword}) => {
+        await changePasswordMutation({
+          currentPassword,
+          newPassword,
+        })
+        enqueueSnackbar("Password updated successfully")
+      }}>
+        <Typography variant="subtitle2"> Current password </Typography>
+        <RHFTextField hidden name="currentPassword" />
 
         <Typography variant="subtitle2"> New password </Typography>
-        <RHFTextField hidden rows={6} multiline name="fullname" />
+        <RHFTextField hidden name="newPassword" />
 
         <Typography variant="subtitle2"> New password confirm </Typography>
-        <RHFTextField hidden name="fullname" />
+        <RHFTextField hidden name="newPasswordConfirm" />
       </Form>
 
       <Divider />

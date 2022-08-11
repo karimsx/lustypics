@@ -3,7 +3,6 @@ import db from "db"
 import { z } from "zod"
 import { S3Service } from "../../file/hosts/s3-upload"
 
-export type FilterType = "lasted" | "most_viewed"
 export const GetGalleriesInput = z.object({
   page: z.number().int().gte(0),
   perPage: z.number().int().gt(0),

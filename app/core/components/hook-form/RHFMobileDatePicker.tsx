@@ -2,7 +2,7 @@
 import {Controller, useFormContext} from 'react-hook-form';
 // @mui
 import {TextField, TextFieldProps} from '@mui/material';
-import {MobileDatePicker} from "@mui/lab";
+import {MobileDatePicker} from "@mui/x-date-pickers";
 
 // ----------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ export default function RHFMobileDatePicker({name, ...other}: IProps & TextField
           label="Date de naissance"
           inputFormat="MM/dd/yyyy"
           {...field}
-          renderInput={(params) => <TextField {...params} error={!!error} helperText={error?.message}  />}
+          renderInput={(params) => <TextField {...params} error={!!error} fullWidth helperText={error?.message}  />}
         />
       )}
     />

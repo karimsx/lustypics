@@ -16,18 +16,25 @@ model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  name           String?
   email          String   @unique
   hashedPassword String?
   role           String   @default("USER")
 
   emailConfirmed Boolean @default(false)
 
+  likedTags Tags[] @relation(name: "UserTags")
+
+  name           String?
+  birthday      DateTime?
+  bio           String?
+  country       String?
+  gender        String?
   tokens   Token[]
   sessions Session[]
   files    File[]
   Gallery  Gallery[]
 }
+
 
 model Session {
   id                 Int       @id @default(autoincrement())
@@ -54,6 +61,7 @@ model Token {
   // type        TokenType
   expiresAt   DateTime
   sentTo      String
+
 
   user   User @relation(fields: [userId], references: [id])
   userId Int
@@ -85,6 +93,8 @@ model Tags {
   galleries   Gallery[]
   file   File?  @relation(fields: [fileId], references: [id])
   fileId Int? @unique
+    userTag User[] @relation(name: "UserTags")
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
