@@ -8,6 +8,7 @@ export default async function getCurrentUser(_ = null, { session }: Ctx) {
     where: { id: session.userId as number },
     include: {
       likedTags: true,
+      notificationsSetting: true,
     }
   })
 

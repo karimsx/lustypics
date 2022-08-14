@@ -1,32 +1,24 @@
-import { Suspense } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import logout from "app/auth/mutations/logout"
-import logo from "public/logo.png"
 import { useMutation } from "@blitzjs/rpc"
-import { Routes } from "@blitzjs/next"
-import {
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  Container,
-  Divider,
-  Grid,
-  List,
-  ListItem,
-  Paper,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material"
-import { Box } from "@mui/system"
-import { FormProvider, RHFSwitch, RHFTextField } from "app/core/components/hook-form"
-import { z } from "zod"
+import { Divider, Grid, Paper, Stack, Typography } from "@mui/material"
+import { RHFSwitch } from "app/core/components/hook-form"
 import Form from "app/core/components/Form"
+import updateUserNotificationsSettings from "../mutations/updateUserNotificationsSettings"
+import { useSnackbar } from "notistack"
+import { useCurrentUser } from "../../core/hooks/useCurrentUser"
 
 export const NotificationForm = () => {
+  const user = useCurrentUser()
+  const [updateUserNotificationSettingsMutation] = useMutation(updateUserNotificationsSettings)
+  const { enqueueSnackbar } = useSnackbar()
+
+  const initialValues = {whenGalleryCommented: false,
+    whenGalleryLiked: false,
+    whenFollowed: false,
+    whenWebsiteUpdate: false,
+  }
+
+  user?.notificationsSetting?.forEach(notificationSettings => initialValues[notificationSettings.content] = notificationSettings.enabled)
+
   return (
     <Paper sx={{ p: 4 }}>
       <Typography mb={1} variant="h5">
@@ -35,7 +27,10 @@ export const NotificationForm = () => {
 
       <Divider sx={{ my: 2 }} />
 
-      <Form submitText="Save" onSubmit={async (values) => {}}>
+      <Form submitText="Save" initialValues={initialValues} onSubmit={async (values) => {
+        await updateUserNotificationSettingsMutation(values)
+        await enqueueSnackbar("Notification settings updated successfully")
+      }}>
         <Grid container>
           <Grid item xs={12} md={6}>
             <Typography variant="subtitle1" fontWeight={"bold"}>
@@ -44,9 +39,9 @@ export const NotificationForm = () => {
             </Typography>
             <Typography variant="caption"> Your will receive website notification </Typography>
             <Stack mt={2}>
-              <RHFSwitch hidden label="When gallery commented" name="fullname" />
-              <RHFSwitch hidden label="When gallery liked" name="fullname" />
-              <RHFSwitch hidden label="When followed" name="fullname" />
+              <RHFSwitch hidden label="When gallery commented" name="whenGalleryCommented" />
+              <RHFSwitch hidden label="When gallery liked" name="whenGalleryLiked" />
+              <RHFSwitch hidden label="When followed" name="whenFollowed" />
             </Stack>
           </Grid>
 
@@ -60,7 +55,7 @@ export const NotificationForm = () => {
               Your will received email and website notification{" "}
             </Typography>
             <Stack mt={2}>
-              <RHFSwitch hidden label="New website update" name="fullname" />
+              <RHFSwitch hidden label="New website update" name="whenWebsiteUpdate" />
             </Stack>
           </Grid>
         </Grid>

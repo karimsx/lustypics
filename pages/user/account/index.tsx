@@ -70,7 +70,7 @@ const UserAccountPage = () => {
             Change account information
           </Typography>
         </Container>
-        /
+
       </Box>
       <Container>
         <TabContext value={value}>
