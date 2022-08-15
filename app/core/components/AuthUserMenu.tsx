@@ -63,13 +63,13 @@ export const AuthUserMenu = () => {
       <Link href={"/user/profile"}>
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       </Link>{" "}
-      <Link href={"/account"}>
+      <Link href={"/user/account"}>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       </Link>
       <Link href={"/user/galleries"}>
         <MenuItem onClick={handleMenuClose}>My Galleries</MenuItem>
       </Link>
-      <Link href={"/user/galleries"}>
+      <Link href={"/"}>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Link>
     </Menu>
