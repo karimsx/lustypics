@@ -1,42 +1,19 @@
-import { Suspense, useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import Layout from "app/core/layouts/Layout"
+import { useState } from "react"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import logout from "app/auth/mutations/logout"
-import logo from "public/logo.png"
-import { useMutation } from "@blitzjs/rpc"
-import { Routes } from "@blitzjs/next"
-import {
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  Container,
-  Divider,
-  Grid,
-  Paper,
-  Skeleton,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-  useTheme,
-} from "@mui/material"
+import { Container, Paper, Tab, Typography, useTheme } from "@mui/material"
 import { Box } from "@mui/system"
-import { FormProvider } from "app/core/components/hook-form"
 import { GeneralSettingsForm } from "app/users/components/GeneralSettingsForm"
 import { TabContext, TabList, TabPanel } from "@mui/lab"
 import { ChangePasswordForm } from "app/users/components/ChangePasswordForm"
 import { NotificationForm } from "app/users/components/NotificationForm"
 import { TagsForm } from "app/users/components/tagform/TagsForm"
-import { TheatersOutlined } from "@mui/icons-material"
-import {useForm} from "react-hook-form";
-import {User}from "db"
+import { User } from "db"
+import { GenericHeader } from "../../../app/core/components/GenericHeader"
+
 function a11yProps(index: number) {
   return {
     id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`
   }
 }
 
@@ -53,61 +30,39 @@ const UserAccountPage = () => {
 
   return (
     <>
-      <Box
-        sx={{ backgroundColor: theme.palette.primary.main, color: "white" }}
-        mt={4}
-        mb={-3}
-        py={3}
-      >
 
+      <GenericHeader primaryText={"Account settings"}  />
 
-        <Container>
-          <Typography mb={1} variant="h4" component="h2">
-            My account
-          </Typography>
-
-          <Typography mb={2} variant="h6" component="h3">
-            Change account information
-          </Typography>
-        </Container>
-
-      </Box>
       <Container>
         <TabContext value={value}>
-          <Grid container>
-            <Grid item md={4}>
-              <Paper sx={{ mr: 4 }}>
-                <TabList
-                  orientation="vertical"
-                  variant="scrollable"
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="Vertical tabs example"
-                  sx={{ borderRight: 1, borderColor: "divider" }}
-                >
-                  <Tab label="General" value="1" />
-                  <Tab label="Security" value="2" />
-                  <Tab label="Notifications" value="3" />
-                  <Tab label="Prefered Tags" value="4" />
-                </TabList>
-              </Paper>
-            </Grid>
+          <Paper sx={{ mt: -3, mr: 4 }}>
+            <TabList
+              orientation="horizontal"
+              variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              aria-label="Vertical tabs example"
+              sx={{ borderRight: 1, p: 1, px: 2,  mb: 2, borderColor: "divider" }}
+            >
+              <Tab label="General" value="1" />
+              <Tab label="Security" value="2" />
+              <Tab label="Notifications" value="3" />
+              <Tab label="Prefered Tags" value="4" />
+            </TabList>
+          </Paper>
 
-            <Grid item md={8}>
-              <TabPanel sx={{ p: 0 }} value="1">
-                <GeneralSettingsForm user={user as User}/>
-              </TabPanel>
-              <TabPanel sx={{ p: 0 }} value="2">
-                <ChangePasswordForm />
-              </TabPanel>
-              <TabPanel sx={{ p: 0 }} value="3">
-                <NotificationForm />
-              </TabPanel>
-              <TabPanel sx={{ p: 0 }} value="4">
-                <TagsForm />
-              </TabPanel>
-            </Grid>
-          </Grid>
+          <TabPanel sx={{ p: 0 }} value="1">
+            <GeneralSettingsForm user={user as User} />
+          </TabPanel>
+          <TabPanel sx={{ p: 0 }} value="2">
+            <ChangePasswordForm />
+          </TabPanel>
+          <TabPanel sx={{ p: 0 }} value="3">
+            <NotificationForm />
+          </TabPanel>
+          <TabPanel sx={{ p: 0 }} value="4">
+            <TagsForm />
+          </TabPanel>
         </TabContext>
       </Container>
     </>
