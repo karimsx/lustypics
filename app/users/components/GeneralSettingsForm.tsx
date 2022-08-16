@@ -12,6 +12,8 @@ import { useSnackbar } from "notistack"
 import { RHFAutoComplete } from "../../core/components/hook-form/RHFAutoComplete"
 import { FlagIcon } from "../../core/components/FlagIcon"
 import countries from "i18n-iso-countries"
+import { z } from "zod"
+import { DevTool } from "@hookform/devtools";
 
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
 
@@ -34,7 +36,6 @@ export const GeneralSettingsForm = ({ user }: GeneralSettingsFormProps) => {
 
   return (
     <Paper sx={{ p: 4 }}>
-
       <Typography mb={1} variant="h5">
         Change your private information
       </Typography>
@@ -48,10 +49,10 @@ export const GeneralSettingsForm = ({ user }: GeneralSettingsFormProps) => {
             initialValues={{
               id: user.id,
               name: user.name || "",
-              birthday: user.birthday as any,
+              birthday: user.birthday || undefined,
               country: user.country || "",
               bio: user.bio || "",
-              gender: user.gender || null as any
+              gender: (user.gender || undefined) as any,
             }}
             submitText="Save" onSubmit={async (values) => {
         const payload = {
