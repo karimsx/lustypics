@@ -25,11 +25,12 @@ const OverlayStyle = styled("div")(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 type Props = {
-  user: any
+  user: any,
+  showBio?: boolean
 }
 
-export default function UserCard({ user }: Props) {
-  const { email: name, cover, position, follower, totalPost, avatarUrl, following } = user
+export default function UserCard({ user, showBio }: Props) {
+  const { name, cover, bio, follower, totalPost, avatarUrl, following } = user
 
   return (
     <Card sx={{ textAlign: "center" }}>
@@ -70,9 +71,10 @@ export default function UserCard({ user }: Props) {
         {name}
       </Typography>
 
-      <Typography mb={2} variant="body2" sx={{ color: "text.secondary" }}>
-        {position}
-      </Typography>
+      {showBio && <Typography mb={2} variant="body2" sx={{ mx: 2, color: "text.secondary" }}>
+        {bio}
+      </Typography>}
+
 
 
 

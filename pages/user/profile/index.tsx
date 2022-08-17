@@ -22,35 +22,18 @@ import { faker } from "@faker-js/faker"
 import getGalleries from "../../../app/galleries/queries/getGalleries"
 import { useSession } from "@blitzjs/auth"
 import { useRouter } from "next/router"
+import {useCurrentUser} from "../../../app/core/hooks/useCurrentUser";
 
-/*
- * This file is just for a pleasant getting started page for your new app.
- * You can delete everything in here and start from scratch if you like.
- */
-
-const getImagesMock = () => [
-  {
-    original: faker.image.abstract(640, 480, true),
-    thumbnail: faker.image.abstract(640, 480, true)
-  },
-  {
-    original: faker.image.abstract(640, 480, true),
-    thumbnail: faker.image.abstract(640, 480, true)
-  },
-  {
-    original: faker.image.abstract(640, 480, true),
-    thumbnail: faker.image.abstract(640, 480, true)
-  }
-]
 
 const UserProfilePage = () => {
   const cards = [0, 1, 2, 4, 5, 6]
   const session = useSession()
   const router = useRouter()
+  const user = useCurrentUser()
 
   const [pagination, setPagination] = useState({
       page: 1,
-      perPage: 10,
+      perPage: 8,
       totalPages: 0
     }
   )
@@ -65,16 +48,16 @@ const UserProfilePage = () => {
     <>
       <Container>
         <Box pt={3}>
-          <Grid spacing={2} container>
-            <Grid item md={3}>
+          <Grid spacing={4} container>
+            <Grid item md={4}>
               <Card>
-                <UserCard user={{ id: 1, name: "test" }}></UserCard>
+                <UserCard user={user} showBio={true}></UserCard>
               </Card>
             </Grid>
 
-            <Grid item md={9}>
+            <Grid item md={8}>
 
-              <Box pt={3}>
+              <Box>
                 <Typography mb={2} variant="h4" component="h2">
                   Latest galleries
                 </Typography>
@@ -230,12 +213,13 @@ const UserProfilePage = () => {
                     </Grid>
                   ))}
                 </Grid>
+                <Box display={"flex"} mt={2} justifyContent={"flex-end"}>
+                  <Button variant="contained"> All galleries</Button>
+                </Box>
               </Box>
             </Grid>
 
-            <Stack mt={2} alignItems={"flex-end"}>
-              <Button variant="contained"> All galleries</Button>
-            </Stack>
+
           </Grid>
         </Box>
       </Container>
