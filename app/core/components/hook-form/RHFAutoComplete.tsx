@@ -3,8 +3,8 @@ import { Controller, useFormContext } from "react-hook-form"
 
 interface HfAutoCompleteProps {
   getOptionLabel: (option: any) => string
-  renderOption: (props: any, option: any) => JSX.Element
-  isOptionEqualToValue: (option: any, value: any) => boolean
+  renderOption?: (props: any, option: any) => JSX.Element
+  isOptionEqualToValue?: (option: any, value: any) => boolean
   label?: string
   name: any
   options: any
@@ -29,12 +29,12 @@ export const RHFAutoComplete = ({
     <Controller
       control={control}
       name={name}
-      {...other}
       render={({
         formState: { touchedFields, isSubmitted, errors },
         field: { onChange, onBlur, value },
       }) => (
         <Autocomplete
+          {...other}
           blurOnSelect={true}
           clearOnBlur={true}
           options={options}

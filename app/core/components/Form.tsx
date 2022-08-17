@@ -3,6 +3,7 @@ import { FormProvider, useForm, UseFormProps } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Button } from "@mui/material"
+import { DevTool } from "@hookform/devtools";
 
 export interface FormProps<S extends z.ZodType<any, any>>
   extends Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit"> {
@@ -41,6 +42,7 @@ export function Form<S extends z.ZodType<any, any>>({
 
   return (
     <FormProvider {...ctx}>
+      <DevTool control={ctx.control} /> {/* set up the dev tool */}
       <form
         onSubmit={ctx.handleSubmit(async (values) => {
           const result = (await onSubmit(values)) || {}
@@ -75,7 +77,7 @@ export function Form<S extends z.ZodType<any, any>>({
 
         {submitElement && <>{submitElement}</>}
 
-        <style global jsx>{`
+        <style>{`
           .form > * + * {
             margin-top: 1rem;
           }

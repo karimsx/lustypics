@@ -10,7 +10,7 @@ interface IProps {
   children: any;
 }
 
-export default function RHFSelect({ name, children, ...other }: IProps & TextFieldProps) {
+export default function RHFSelect({ name, children, ...other }: IProps & any) {
   const { control } = useFormContext();
 
   return (
@@ -22,6 +22,7 @@ export default function RHFSelect({ name, children, ...other }: IProps & TextFie
           {...field}
           fullWidth
           error={!!error}
+          {...other}
         >
           {children}
         </Select>
