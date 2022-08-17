@@ -49,13 +49,13 @@ const UserProfilePage = () => {
       <Container>
         <Box pt={3}>
           <Grid spacing={4} container>
-            <Grid item md={4}>
+            <Grid item md={3}>
               <Card>
                 <UserCard user={user} showBio={true}></UserCard>
               </Card>
             </Grid>
 
-            <Grid item md={8}>
+            <Grid item md={9}>
 
               <Box>
                 <Typography mb={2} variant="h4" component="h2">

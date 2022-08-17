@@ -26,6 +26,7 @@ import { Box } from "@mui/system"
 import LightGallery from "lightgallery/react"
 import { faker } from "@faker-js/faker"
 import getGalleries from "../../app/galleries/queries/getGalleries";
+import {GalleryOverviewCard} from "../../app/galleries/components/GalleryOverviewCard";
 
 /*
  * This file is just for a pleasant getting started page for your new app.
@@ -85,33 +86,7 @@ const Galleries = () => {
     <>
       <Container>
         {galleries?.items?.map((gallery) => (
-          <Box mt={2}>
-            <Paper elevation={5}>
-              <Box p={2} mb={3}>
-                <Typography> {gallery.name} </Typography>
-
-                <Grid container>
-                  {gallery.files.slice(0, 4).map((image) => (
-                    <Grid item md={3}>
-                      <Link href="/galleries/1" passHref>
-                        <ReactLink>
-                          <Box
-                            sx={{
-                              backgroundImage: `url(${image.signedUrl})`,
-                              backgroundOrigin: "center",
-                              backgroundPosition: "center",
-                              height: "300px",
-                              mr: 2,
-                            }}
-                          />
-                        </ReactLink>
-                      </Link>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
-            </Paper>
-          </Box>
+            <GalleryOverviewCard gallery={gallery} />
         ))}
 
         <Box my={4} display={"flex"} justifyContent="center">
