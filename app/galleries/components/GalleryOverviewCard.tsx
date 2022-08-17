@@ -29,7 +29,7 @@ export const GalleryOverviewCard = ({
             <Box display={"flex"}>
               <Box mb={1}>
                 <Box>
-                  <Typography> {gallery.name} Gallery Name</Typography>
+                  <Typography> {gallery.name}</Typography>
                   <Typography variant={"caption"} color={"grey.600"}>
                     {" "}
                     {gallery.description}

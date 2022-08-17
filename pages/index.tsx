@@ -33,21 +33,6 @@ import getCurrentUser from "app/users/queries/getCurrentUser"
 import getGalleries from "app/galleries/queries/getGalleries"
 import { useRouter } from "next/router"
 
-const getImagesMock = () => [
-  {
-    original: faker.image.abstract(640, 480, true),
-    thumbnail: faker.image.abstract(640, 480, true),
-  },
-  {
-    original: faker.image.abstract(640, 480, true),
-    thumbnail: faker.image.abstract(640, 480, true),
-  },
-  {
-    original: faker.image.abstract(640, 480, true),
-    thumbnail: faker.image.abstract(640, 480, true),
-  },
-]
-
 const Home = () => {
   const cards = [0, 1, 2, 3, 4, 5, 6, 8, 7, 4, 6, 8]
   const router = useRouter()
@@ -65,161 +50,162 @@ const Home = () => {
   })
 
   return (
-      <Container>
-        <Box pt={3}>
-          <Typography mb={2} variant="h4" component="h2">
-            Latest galleries
-          </Typography>
+    <Container>
+      <Box pt={3}>
+        <Typography mb={2} variant="h4" component="h2">
+          Latest galleries
+        </Typography>
 
-          <Grid spacing={3} container>
-            {latestGalleries.items.map((gallery) => (
-              <Grid item xs={12} md={3}>
-                <Card>
-                  <ImageGallery
-                    showThumbnails={false}
-                    showPlayButton={false}
-                    showFullscreenButton={false}
-                    onClick={async () => {
-                      await router.push(`/galleries/${gallery.id}`)
-                    }}
-                    renderLeftNav={(onClick, disabled) => {
-                      return (
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            zIndex: 4,
-                            top: "calc(50% - 18px)",
-                          }}
-                        >
-                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
-                            <ChevronLeftIcon></ChevronLeftIcon>
-                          </IconButton>
-                        </Box>
-                      )
-                    }}
-                    renderRightNav={(onClick, disabled) => {
-                      return (
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            zIndex: 4,
-                            top: "calc(50% - 18px)",
-                            right: "10px",
-                          }}
-                        >
-                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
-                            <ChevronRightIcon></ChevronRightIcon>
-                          </IconButton>
-                        </Box>
-                      )
-                    }}
-                    items={gallery?.files?.slice(0,5)?.map(file => ({original: file.signedUrl, thumbnail: file.signedUrl}))}
-                  />
-                  <CardContent>
-                    <Link href="/galleries" passHref>
-                      <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
-                        <Typography>
-                          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem dolo
-                        </Typography>
-                      </ReactLink>
-                    </Link>
+        <Grid spacing={3} container>
+          {latestGalleries.items.map((gallery) => (
+            <Grid item xs={12} md={3}>
+              <Card>
+                <ImageGallery
+                  showThumbnails={false}
+                  showPlayButton={false}
+                  showFullscreenButton={false}
+                  onClick={async () => {
+                    await router.push(`/galleries/${gallery.id}`)
+                  }}
+                  renderLeftNav={(onClick, disabled) => {
+                    return (
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          zIndex: 4,
+                          top: "calc(50% - 18px)",
+                        }}
+                      >
+                        <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                          <ChevronLeftIcon></ChevronLeftIcon>
+                        </IconButton>
+                      </Box>
+                    )
+                  }}
+                  renderRightNav={(onClick, disabled) => {
+                    return (
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          zIndex: 4,
+                          top: "calc(50% - 18px)",
+                          right: "10px",
+                        }}
+                      >
+                        <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                          <ChevronRightIcon></ChevronRightIcon>
+                        </IconButton>
+                      </Box>
+                    )
+                  }}
+                  items={gallery?.files
+                    ?.slice(0, 5)
+                    ?.map((file) => ({ original: file.signedUrl, thumbnail: file.signedUrl }))}
+                />
+                <CardContent>
+                  <Link href="/galleries" passHref>
+                    <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
+                      <Typography>{gallery.name}</Typography>
+                    </ReactLink>
+                  </Link>
 
-                    <Stack mt={3} direction={"row"} flexWrap="wrap">
-                      {cards.slice(0, 6).map((card) => (
-                        <Box mx={1} my={1}>
-                          {" "}
-                          <Chip onClick={() => {}} label="testdz" />
-                        </Box>
+                  <Stack mt={3} direction={"row"} flexWrap="wrap">
+                    <Box mx={1} my={1}>
+                      {gallery.tags.map((tag) => (
+                        <Chip size="small" onClick={() => {}} label={tag.name} />
                       ))}
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-
-          <Stack mt={2} alignItems={"flex-end"}>
-            <Button variant="contained"> See More</Button>
-          </Stack>
-        </Box>
-
-        <Box pt={5}>
-          <Typography mb={2} variant="h4" component="h2">
-            Most viewed galleries
-          </Typography>
-
-          <Grid spacing={3} container>
-            {mostViewedGalleries.items.map((gallery) => (
-              <Grid item xs={12} md={3}>
-                <Card>
-                  <ImageGallery
-                    showThumbnails={false}
-                    showPlayButton={false}
-                    showFullscreenButton={false}
-                    onClick={async () => {
-                      await router.push(`/galleries/${gallery.id}`)
-                    }}
-                    renderLeftNav={(onClick, disabled) => {
-                      return (
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            zIndex: 4,
-                            top: "calc(50% - 18px)",
-                          }}
-                        >
-                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
-                            <ChevronLeftIcon></ChevronLeftIcon>
-                          </IconButton>
-                        </Box>
-                      )
-                    }}
-                    renderRightNav={(onClick, disabled) => {
-                      return (
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            zIndex: 4,
-                            top: "calc(50% - 18px)",
-                            right: "10px",
-                          }}
-                        >
-                          <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
-                            <ChevronRightIcon></ChevronRightIcon>
-                          </IconButton>
-                        </Box>
-                      )
-                    }}
-                    items={gallery?.files?.slice(0,5)?.map(file => ({original: file.signedUrl, thumbnail: file.signedUrl}))}
-                  />
-                  <CardContent>
-                    <Link href="/galleries" passHref>
-                      <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
-                        <Typography>
-                          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem dolo
-                        </Typography>
-                      </ReactLink>
-                    </Link>
-
-                    <Stack mt={3} direction={"row"} flexWrap="wrap">
-                      {cards.slice(0, 6).map((card) => (
-                        <Box mx={1} my={1}>
-                          {" "}
-                          <Chip onClick={() => {}} label="testdz" />
-                        </Box>
-                      ))}
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+                    </Box>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
 
         <Stack mt={2} alignItems={"flex-end"}>
           <Button variant="contained"> See More</Button>
         </Stack>
-      </Container>
+      </Box>
+
+      <Box pt={5}>
+        <Typography mb={2} variant="h4" component="h2">
+          Most viewed galleries
+        </Typography>
+
+        <Grid spacing={3} container>
+          {mostViewedGalleries.items.map((gallery) => (
+            <Grid item xs={12} md={3}>
+              <Card>
+                <ImageGallery
+                  showThumbnails={false}
+                  showPlayButton={false}
+                  showFullscreenButton={false}
+                  onClick={async () => {
+                    await router.push(`/galleries/${gallery.id}`)
+                  }}
+                  renderLeftNav={(onClick, disabled) => {
+                    return (
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          zIndex: 4,
+                          top: "calc(50% - 18px)",
+                        }}
+                      >
+                        <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                          <ChevronLeftIcon></ChevronLeftIcon>
+                        </IconButton>
+                      </Box>
+                    )
+                  }}
+                  renderRightNav={(onClick, disabled) => {
+                    return (
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          zIndex: 4,
+                          top: "calc(50% - 18px)",
+                          right: "10px",
+                        }}
+                      >
+                        <IconButton onClick={onClick} disabled={disabled} sx={{ color: "white" }}>
+                          <ChevronRightIcon></ChevronRightIcon>
+                        </IconButton>
+                      </Box>
+                    )
+                  }}
+                  items={gallery?.files
+                    ?.slice(0, 5)
+                    ?.map((file) => ({ original: file.signedUrl, thumbnail: file.signedUrl }))}
+                />
+                <CardContent>
+                  <Link href="/galleries" passHref>
+                    <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
+                      <Typography>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem dolo
+                      </Typography>
+                    </ReactLink>
+                  </Link>
+
+                  <Stack mt={3} direction={"row"} flexWrap="wrap">
+                    {cards.slice(0, 6).map((card) => (
+                      <Box mx={1} my={1}>
+                        {" "}
+                        <Chip onClick={() => {}} label="testdz" />
+                      </Box>
+                    ))}
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+
+      <Stack mt={2} alignItems={"flex-end"}>
+        <Button variant="contained"> See More</Button>
+      </Stack>
+    </Container>
   )
 }
 
