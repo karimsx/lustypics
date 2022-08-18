@@ -58,6 +58,7 @@ const Galleries = () => {
       page,
     }))
   }
+
   return (
     <>
       <Container>

@@ -1,5 +1,5 @@
 import { Box } from "@mui/system"
-import { Gallery, File, Tags } from "db"
+import { Gallery, File, Tags, User } from "db"
 import {
   Button,
   Chip,
@@ -17,7 +17,7 @@ import { useState } from "react"
 export const GalleryOverviewCard = ({
   gallery,
 }: {
-  gallery: Gallery & { files: File[]; tags: Tags[] }
+  gallery: Gallery & { files: File[]; tags: Tags[]; owner: User }
 }) => {
   const [value, setValue] = useState<number | null>(2)
 
@@ -49,7 +49,7 @@ export const GalleryOverviewCard = ({
               <Box sx={{ ml: "auto" }}>
                 <Button variant={"text"} sx={{ borderRadius: 1, color: "grey.700" }}>
                   <Typography fontSize={"12px"} sx={{ mr: 2 }}>
-                    Karim Squalli
+                    {gallery.owner.name}
                   </Typography>
                   <MyAvatar sx={{ width: "32px", height: "32px" }} />
                 </Button>
@@ -61,7 +61,7 @@ export const GalleryOverviewCard = ({
             <Grid container>
               {gallery.files.slice(0, 4).map((image) => (
                 <Grid item md={3}>
-                  <Link href="/galleries/1" passHref>
+                  <Link href={`/galleries/${gallery.id}`} passHref>
                     <ReactLink>
                       <Box
                         sx={{
