@@ -3,7 +3,7 @@ import { FormProvider, useForm, UseFormProps } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Button } from "@mui/material"
-import { DevTool } from "@hookform/devtools";
+import { DevTool } from "@hookform/devtools"
 
 export interface FormProps<S extends z.ZodType<any, any>>
   extends Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit"> {
@@ -46,6 +46,7 @@ export function Form<S extends z.ZodType<any, any>>({
       <form
         onSubmit={ctx.handleSubmit(async (values) => {
           const result = (await onSubmit(values)) || {}
+          setFormError(null)
           for (const [key, value] of Object.entries(result)) {
             if (key === FORM_ERROR) {
               setFormError(value)

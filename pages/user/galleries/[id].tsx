@@ -14,7 +14,7 @@ import getFilesByGallery from "../../../app/file/queries/getFilesByGallery"
 import { useRouter } from "next/router"
 import { SelectableImage } from "../../../app/galleries/components/SelectableImage"
 import Form from "../../../app/core/components/Form"
-import { RHFTextField } from "../../../app/core/components/hook-form"
+import { RHFSwitch, RHFTextField } from "../../../app/core/components/hook-form"
 import FormLabel from "../../../app/core/components/hook-form/FormLabel"
 import getTags from "../../../app/galleries/queries/tags/getTags"
 import { RHFAutoComplete } from "../../../app/core/components/hook-form/RHFAutoComplete"
@@ -82,9 +82,15 @@ const EditGallery = () => {
               name: gallery?.name || "",
               description: gallery?.description || "",
               tags: gallery?.tags,
+              isPublic: gallery?.isPublic,
             }}
             onSubmit={async (values) => {
-              console.log(values)
+              if (values.isPublic && !values.name) {
+                return {
+                  FORM_ERROR: "Can't make a gallery public whithout a title",
+                }
+              }
+
               await updateGalleryMutation({
                 ...values,
                 id: parseInt(id as string, 10),
@@ -114,6 +120,12 @@ const EditGallery = () => {
                 </MenuItem>
               ))}
             </RHFAutoComplete>
+
+            <FormLabel content={"Public status"} />
+            <Box mb={2}>
+              {" "}
+              <RHFSwitch name="isPublic" label="Public" />
+            </Box>
           </Form>
         </Paper>
 

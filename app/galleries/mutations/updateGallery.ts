@@ -8,12 +8,13 @@ export const UpdateGalleryZod = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
   tags: z.array(z.number().int().positive()),
+  isPublic: z.boolean(),
 })
 
 export default resolver.pipe(
   resolver.zod(UpdateGalleryZod),
   resolver.authorize(),
-  async ({ id, name, description, tags }, ctx) => {
+  async ({ id, name, description, isPublic, tags }, ctx) => {
     const updatedGallery = await db.gallery.update({
       where: {
         id,
@@ -21,6 +22,7 @@ export default resolver.pipe(
       data: {
         name,
         description,
+        isPublic,
         tags: {
           connect: tags.map((tagId) => ({ id: tagId })),
         },
