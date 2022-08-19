@@ -124,6 +124,7 @@
     "tld-extract": "^2.0.1",
     "tslib": "^2.0.0",
     "use-debounce": "^7.0.1",
+    "usehooks-ts": "2.6.0",
     "winston": "^3.5.0",
     "worker-loader": "^3.0.8",
     "yup": "^0.32.11",

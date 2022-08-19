@@ -8,6 +8,7 @@ interface HfAutoCompleteProps {
   label?: string
   name: any
   options: any
+  placeholder?: string
 
   [x: string]: any
 }
@@ -21,6 +22,7 @@ export const RHFAutoComplete = ({
   getOptionLabel,
   renderOption,
   onInputChange,
+  placeholder,
   ...other
 }: HfAutoCompleteProps) => {
   const { control } = useFormContext()
@@ -55,6 +57,7 @@ export const RHFAutoComplete = ({
               {...params}
               label={label}
               onBlur={onBlur}
+              placeholder={!value ? placeholder : ""}
               error={(touchedFields[name] || isSubmitted) && Boolean(errors?.[name])}
               // helperText={errors?.[name]?.message}
               inputProps={{

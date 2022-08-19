@@ -6,65 +6,92 @@ import { S3Service } from "../../file/hosts/s3-upload"
 export const GetGalleriesInput = z.object({
   page: z.number().int().gte(0),
   perPage: z.number().int().gt(0),
-  filterType: z.enum(["lasted", "most_viewed"]).optional(),
-  ownerId: z.number().int().gt(0).optional()
+  term: z.string().optional(),
+  tags: z.array(z.number().int().positive()).optional(),
+  orderBy: z.enum(["latest", "most_viewed", "best_rated"]).optional(),
+  ownerId: z.number().int().gt(0).optional(),
 })
 
 export default async function getGalleries(
-  { page, perPage, filterType, ownerId }: z.infer<typeof GetGalleriesInput>,
+  { page, perPage, term, orderBy: orderByObject, tags, ownerId }: z.infer<typeof GetGalleriesInput>,
   { session }: Ctx
 ) {
-
   const s3 = S3Service.getInstance()
 
   const orderBy = {}
 
-  switch (filterType) {
-    case "lasted": {
+  switch (orderByObject) {
+    case "latest": {
       orderBy["createdAt"] = "desc"
       break
     }
-    case  "most_viewed": {
+    case "most_viewed": {
       orderBy["views"] = "desc"
       break
     }
   }
 
+  const where = {
+    ownerId,
+  }
+
+  if (term) {
+    where["OR"] = [
+      {
+        name: {
+          contains: term,
+        },
+      },
+      {
+        description: {
+          contains: term,
+        },
+      },
+    ]
+  }
+
+  if (tags && tags.length > 0) {
+    where["tags"] = {
+      some: {
+        id: {
+          in: tags,
+        },
+      },
+    }
+  }
 
   const galleries = await db.gallery.findMany({
     take: perPage,
     skip: (page - 1) * perPage,
     orderBy,
     where: {
-      ownerId
+      ...where,
     },
     include: {
       files: true,
       owner: {
         select: {
-          name: true
-        }
+          name: true,
+        },
       },
-      tags: true
-    }
+      tags: true,
+    },
   })
 
   const count = await db.gallery.count({
-    orderBy,
     where: {
-      ownerId
-    }
+      ...where,
+    },
   })
-
 
   return {
     totalPage: Math.floor(count / perPage) + (count % perPage ? 1 : 0),
-    items: galleries.map(gallery => ({
+    items: galleries.map((gallery) => ({
       ...gallery,
-      files: gallery.files?.map(file => ({
+      files: gallery.files?.map((file) => ({
         ...file,
-        signedUrl: s3.getObjectSignedUrl(file.key)
-      }))
-    }))
+        signedUrl: s3.getObjectSignedUrl(file.key),
+      })),
+    })),
   }
 }

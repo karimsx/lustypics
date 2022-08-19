@@ -19,6 +19,8 @@ import {
   Stack,
   Typography,
   Link as ReactLink,
+  TextField,
+  MenuItem,
 } from "@mui/material"
 import { Title } from "@mui/icons-material"
 import PrimaryAppBar from "app/core/components/AppBar"
@@ -27,6 +29,11 @@ import LightGallery from "lightgallery/react"
 import { faker } from "@faker-js/faker"
 import getGalleries from "../../app/galleries/queries/getGalleries"
 import { GalleryOverviewCard } from "../../app/galleries/components/GalleryOverviewCard"
+import { RHFAutoComplete } from "app/core/components/hook-form/RHFAutoComplete"
+import getTags from "app/galleries/queries/tags/getTags"
+import Form from "app/core/components/Form"
+import { RHFSelect, RHFTextField } from "app/core/components/hook-form"
+import { GalleryFilterForm } from "app/galleries/components/GalleryFilterForm"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
@@ -40,9 +47,16 @@ const Galleries = () => {
     totalPages: 0,
   })
 
+  const [filter, setFilter] = useState<any>({
+    orderBy: "latest",
+    term: "",
+    tags: [],
+  })
+
   const [galleries, { refetch: refetchGalleries }] = useQuery(getGalleries, {
     page: pagination.page,
     perPage: pagination.perPage,
+    ...filter,
   })
 
   useEffect(() => {
@@ -59,9 +73,14 @@ const Galleries = () => {
     }))
   }
 
+  const handleFiltersChange = (newFilters) => {
+    setFilter(newFilters)
+  }
+
   return (
     <>
       <Container>
+        <GalleryFilterForm onChange={handleFiltersChange} />
         {galleries?.items?.map((gallery) => (
           <GalleryOverviewCard gallery={gallery} />
         ))}

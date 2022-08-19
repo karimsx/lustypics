@@ -1,32 +1,27 @@
 // form
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext, Controller } from "react-hook-form"
 // @mui
-import {Select, TextField, TextFieldProps} from '@mui/material';
+import { Select, TextField, TextFieldProps } from "@mui/material"
 
 // ----------------------------------------------------------------------
 
 interface IProps {
-  name: string;
-  children: any;
+  name: string
+  children: any
 }
 
 export default function RHFSelect({ name, children, ...other }: IProps & any) {
-  const { control } = useFormContext();
+  const { control } = useFormContext()
 
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <Select
-          {...field}
-          fullWidth
-          error={!!error}
-          {...other}
-        >
+        <Select {...field} fullWidth error={!!error} {...other}>
           {children}
         </Select>
       )}
     />
-  );
+  )
 }

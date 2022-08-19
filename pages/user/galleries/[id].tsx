@@ -29,17 +29,16 @@ let ImageEditor: any = dynamic<ReactNode>(() => import("@toast-ui/react-image-ed
 const EditGallery = () => {
   const router = useRouter()
   const { id } = router.query
+  const { enqueueSnackbar } = useSnackbar()
 
   const [gallery] = useQuery(getGallery, {
     id: parseInt(id as string, 10),
   })
-
-  const { enqueueSnackbar } = useSnackbar()
+  const [tags] = useQuery(getTags, {})
 
   const [files, { refetch: refetchFiles }] = useQuery(getFilesByGallery, {
     galleryId: parseInt(id as string),
   })
-  const [tags] = useQuery(getTags, {})
 
   const [createFilesMutation] = useMutation(createFiles)
   const [updateGalleryMutation] = useMutation(updateGallery)

@@ -11,7 +11,7 @@ import {
   Link as ReactLink,
   Pagination,
   Paper,
-  Typography
+  Typography,
 } from "@mui/material"
 import { Delete, Edit } from "@mui/icons-material"
 import { Box } from "@mui/system"
@@ -24,8 +24,7 @@ import { useSession } from "@blitzjs/auth"
 import { useRouter } from "next/router"
 import deleteGallery from "../../../app/galleries/mutations/deleteGallery"
 
-import { Gallery } from 'db'
-
+import { Gallery } from "db"
 
 const MyGalleries = () => {
   const session = useSession()
@@ -33,59 +32,65 @@ const MyGalleries = () => {
 
   const [showDialog, closeDialog] = useDialog()
   const [pagination, setPagination] = useState({
-      page: 1,
-      perPage: 10,
-      totalPages: 0
-    }
-  )
+    page: 1,
+    perPage: 10,
+    totalPages: 0,
+  })
 
   const [galleries, { refetch: refetchGalleries }] = useQuery(getGalleries, {
     page: pagination.page,
     perPage: pagination.perPage,
-    ownerId: session.userId as number
+    ownerId: session.userId as number,
   })
   const [createGalleryMutation] = useMutation(createGallery)
   const [deleteGalleryMutation] = useMutation(deleteGallery)
 
   const handleNewGallery = async () => {
     const gallery = await createGalleryMutation({})
-    await router.push('/user/galleries/' + gallery.id)
+    await router.push("/user/galleries/" + gallery.id)
   }
 
   const handlePageChange = (evt, page: number) => {
     setPagination((oldValue) => ({
       ...oldValue,
-      page
+      page,
     }))
   }
 
   const handleDeleteGallery = (gallery: Gallery) => {
     showDialog({
-      children: <><DialogContent dividers>
-        <Typography gutterBottom>
-          Are you sure you want to delete the gallery <b>{gallery.name}</b>
-        </Typography>
-      </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialog} color={"warning"}>
-            Cancel
-          </Button>
-          <Button onClick={async () => {
-            await deleteGalleryMutation(gallery.id)
-            await refetchGalleries()
-            closeDialog()
-          }} color={"error"} variant={"contained"}>
-            Delete
-          </Button>
-        </DialogActions></>
+      children: (
+        <>
+          <DialogContent dividers>
+            <Typography gutterBottom>
+              Are you sure you want to delete the gallery <b>{gallery.name}</b>
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeDialog} color={"warning"}>
+              Cancel
+            </Button>
+            <Button
+              onClick={async () => {
+                await deleteGalleryMutation(gallery.id)
+                await refetchGalleries()
+                closeDialog()
+              }}
+              color={"error"}
+              variant={"contained"}
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </>
+      ),
     })
   }
-
 
   useEffect(() => {
     setPagination((oldValue) => ({
       ...oldValue,
-      totalPages: galleries.totalPage
+      totalPages: galleries.totalPage,
     }))
   }, [galleries?.totalPage])
 
@@ -101,6 +106,7 @@ const MyGalleries = () => {
             New gallery
           </Button>
         </Box>
+
         {galleries.items.map((gallery) => (
           <Box mt={2}>
             <Box mt={2}>
@@ -120,7 +126,7 @@ const MyGalleries = () => {
                                 backgroundPosition: "center",
                                 height: "300px",
                                 mr: 2,
-                                borderRadius: "10px"
+                                borderRadius: "10px",
                               }}
                             />
                           </ReactLink>
@@ -145,7 +151,11 @@ const MyGalleries = () => {
         ))}
 
         <Box my={4} display={"flex"} justifyContent="center">
-          <Pagination onChange={handlePageChange} count={pagination.totalPages} page={pagination.page}></Pagination>
+          <Pagination
+            onChange={handlePageChange}
+            count={pagination.totalPages}
+            page={pagination.page}
+          ></Pagination>
         </Box>
       </Container>
     </>
