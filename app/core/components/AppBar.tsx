@@ -16,9 +16,11 @@ import MailIcon from "@mui/icons-material/Mail"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import MoreIcon from "@mui/icons-material/MoreVert"
 import { Button, Divider } from "@mui/material"
+import { Link as ReactLink } from "@mui/material"
 import Link from "next/link"
 import { AuthUserMenu } from "./AuthUserMenu"
 import { useCurrentUser } from "../hooks/useCurrentUser"
+import { useRouter } from "next/router"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -47,7 +49,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: "white",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
@@ -62,6 +64,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimaryAppBar() {
   const user = useCurrentUser()
+  const router = useRouter()
+  const [search, setSearch] = React.useState<string | undefined>(undefined)
+
+  const onSearch = async () => {
+    await router.push(`/galleries`, {
+      query: {
+        term: search,
+      },
+    })
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -76,22 +88,36 @@ export default function PrimaryAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Link href="/">
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
-            >
-              LustyPics
-            </Typography>
+          <Link href="/" passHref>
+            <ReactLink>
+              <Typography
+                variant="h6"
+                color={"white"}
+                noWrap
+                component="div"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
+                LustyPics
+              </Typography>
+            </ReactLink>
           </Link>
 
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
+            <StyledInputBase
+              placeholder="Search…"
+              onKeyDown={async (evt) => {
+                if (evt.key == "Enter") {
+                  await onSearch()
+                }
+              }}
+              onSubmit={onSearch}
+              onChange={(evt) => setSearch(evt.target.value)}
+              value={search}
+              inputProps={{ "aria-label": "search" }}
+            />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
