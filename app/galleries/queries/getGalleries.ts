@@ -10,10 +10,19 @@ export const GetGalleriesInput = z.object({
   tags: z.array(z.number().int().positive()).optional(),
   orderBy: z.enum(["latest", "most_viewed", "best_rated"]).optional(),
   ownerId: z.number().int().gt(0).optional(),
+  isPublic: z.boolean().optional(),
 })
 
 export default async function getGalleries(
-  { page, perPage, term, orderBy: orderByObject, tags, ownerId }: z.infer<typeof GetGalleriesInput>,
+  {
+    page,
+    perPage,
+    term,
+    isPublic,
+    orderBy: orderByObject,
+    tags,
+    ownerId,
+  }: z.infer<typeof GetGalleriesInput>,
   { session }: Ctx
 ) {
   const s3 = S3Service.getInstance()
@@ -33,6 +42,7 @@ export default async function getGalleries(
 
   const where = {
     ownerId,
+    isPublic,
   }
 
   if (term) {

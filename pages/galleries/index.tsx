@@ -56,6 +56,7 @@ const Galleries = () => {
   const [galleries, { refetch: refetchGalleries }] = useQuery(getGalleries, {
     page: pagination.page,
     perPage: pagination.perPage,
+    isPublic: true,
     ...filter,
   })
 

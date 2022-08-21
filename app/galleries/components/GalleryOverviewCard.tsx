@@ -12,7 +12,7 @@ import {
 } from "@mui/material"
 import Link from "next/link"
 import MyAvatar from "../../core/components/MyAvatar"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const GalleryOverviewCard = ({
   gallery,
@@ -65,11 +65,17 @@ export const GalleryOverviewCard = ({
                     <ReactLink>
                       <Box
                         sx={{
+                          borderRadius: "5px",
                           backgroundImage: `url(${image["signedUrl"]})`,
                           backgroundOrigin: "center",
                           backgroundPosition: "center",
-                          height: "300px",
+                          height: "200px",
                           mr: 2,
+                          border: "1px solid",
+                          borderColor: "grey.200",
+                          "&:hover": {
+                            boxShadow: 5,
+                          },
                         }}
                       />
                     </ReactLink>

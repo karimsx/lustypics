@@ -13,4 +13,3 @@ export const { gSSP, gSP, api } = setupBlitzServer({
     }),
   ],
 })
-

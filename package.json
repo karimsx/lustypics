@@ -121,6 +121,7 @@
     "slick-carousel": "^1.8.1",
     "stylis": "^4.0.13",
     "stylis-plugin-rtl": "^2.1.1",
+    "swiper": "8.3.2",
     "tld-extract": "^2.0.1",
     "tslib": "^2.0.0",
     "use-debounce": "^7.0.1",
