@@ -81,7 +81,7 @@ const GalleryDetailPage: BlitzPage = () => {
                 </Typography>{" "}
                 <Box>
                   {gallery?.tags?.map((tag) => (
-                    <Box display={"inline-block"} mr={1}>
+                    <Box key={tag.id} display={"inline-block"} mr={1}>
                       <Chip size={"small"} label={tag.name} />
                     </Box>
                   ))}
@@ -113,6 +113,7 @@ const GalleryDetailPage: BlitzPage = () => {
           {" "}
           {gallery?.files?.map((file) => (
             <SwiperSlide
+              key={file.id}
               style={{
                 display: "flex",
                 justifyContent: "center",

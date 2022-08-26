@@ -33,11 +33,18 @@ import getCurrentUser from "app/users/queries/getCurrentUser"
 import getGalleries from "app/galleries/queries/getGalleries"
 import { useRouter } from "next/router"
 import { Masonry } from "@mui/lab"
+import { Gallery } from "@prisma/client"
 
-export const GalleryIndexCard = ({ gallery }) => {
+export interface GalleryIndexCardProps {
+  gallery: Gallery
+  [k: string]: unknown
+}
+
+export const GalleryIndexCard = ({ gallery, ...others }) => {
   const router = useRouter()
+
   return (
-    <Card>
+    <Card {...others}>
       <ImageGallery
         showThumbnails={false}
         showPlayButton={false}
@@ -91,6 +98,7 @@ export const GalleryIndexCard = ({ gallery }) => {
           <Box mx={1} my={1}>
             {gallery.tags.map((tag) => (
               <Chip
+                key={tag.id}
                 sx={{ mr: 1, mb: 1 }}
                 size="small"
                 onClick={async () => {

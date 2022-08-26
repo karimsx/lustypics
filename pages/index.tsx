@@ -59,9 +59,9 @@ const Home = () => {
           Latest galleries
         </Typography>
 
-        <Masonry columns={4} spacing={2}>
+        <Masonry columns={{ xs: 1, sm: 2, md: 4 }} spacing={2}>
           {latestGalleries.items.map((gallery) => (
-            <GalleryIndexCard gallery={gallery} />
+            <GalleryIndexCard key={gallery.id} gallery={gallery} />
           ))}
         </Masonry>
 
@@ -79,7 +79,7 @@ const Home = () => {
 
         <Masonry columns={4} spacing={2}>
           {mostViewedGalleries.items.map((gallery) => (
-            <GalleryIndexCard gallery={gallery} />
+            <GalleryIndexCard key={gallery.id} gallery={gallery} />
           ))}
         </Masonry>
       </Box>
@@ -87,7 +87,7 @@ const Home = () => {
       <Stack mt={2} alignItems={"flex-end"}>
         <Link href="/galleries?orderBy=most_viewed">
           <Button variant="contained"> See More</Button>
-        </Link>{" "}
+        </Link>
       </Stack>
     </Container>
   )
