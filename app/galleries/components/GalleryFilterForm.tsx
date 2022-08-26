@@ -53,7 +53,7 @@ export const GalleryFilterForm = ({ onChange }) => {
   useEffect(() => {
     onChange({
       term: debouncedTerm,
-      tags: watchedTagsAndOrderBy[0]?.map((tag) => tag.id),
+      tags: watchedTagsAndOrderBy[0]?.map((tag: Tags) => tag.id),
       orderBy: watchedTagsAndOrderBy[1],
     })
   }, [debouncedTerm, watchedTagsAndOrderBy])

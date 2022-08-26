@@ -79,11 +79,7 @@ export default async function getGalleries(
     },
     include: {
       files: true,
-      owner: {
-        select: {
-          name: true,
-        },
-      },
+      owner: true,
       tags: true,
     },
   })

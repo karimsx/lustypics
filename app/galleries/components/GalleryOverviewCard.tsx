@@ -17,7 +17,7 @@ import { useEffect, useState } from "react"
 export const GalleryOverviewCard = ({
   gallery,
 }: {
-  gallery: Gallery & { files: File[]; tags: Tags[]; owner: User }
+  gallery: Gallery & { files: File[]; tags: Tags[]; owner?: User }
 }) => {
   const [value, setValue] = useState<number | null>(2)
 
@@ -49,7 +49,7 @@ export const GalleryOverviewCard = ({
               <Box sx={{ ml: "auto" }}>
                 <Button variant={"text"} sx={{ borderRadius: 1, color: "grey.700" }}>
                   <Typography fontSize={"12px"} sx={{ mr: 2 }}>
-                    {gallery.owner.name}
+                    {gallery?.owner?.name}
                   </Typography>
                   <MyAvatar sx={{ width: "32px", height: "32px" }} />
                 </Button>
