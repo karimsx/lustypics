@@ -41,6 +41,7 @@ const StyledImage = styled("img")(({ theme }) => ({
   borderRadius: 5,
   border: "1px solid",
   borderColor: theme.palette.grey[200],
+  maxHeight: "calc(100vh - 60px)",
   "&:hover": {
     boxShadow: theme.shadows[5],
   },
@@ -119,7 +120,6 @@ const GalleryDetailPage: BlitzPage = () => {
                 userSelect: "none",
               }}
             >
-              {" "}
               <StyledImage src={file["signedUrl"]} />
             </SwiperSlide>
           ))}

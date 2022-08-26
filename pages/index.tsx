@@ -66,7 +66,9 @@ const Home = () => {
         </Masonry>
 
         <Stack mt={2} alignItems={"flex-end"}>
-          <Button variant="contained"> See More</Button>
+          <Link href="/galleries?orderBy=latest">
+            <Button variant="contained"> See More</Button>
+          </Link>
         </Stack>
       </Box>
 
@@ -83,7 +85,9 @@ const Home = () => {
       </Box>
 
       <Stack mt={2} alignItems={"flex-end"}>
-        <Button variant="contained"> See More</Button>
+        <Link href="/galleries?orderBy=most_viewed">
+          <Button variant="contained"> See More</Button>
+        </Link>{" "}
       </Stack>
     </Container>
   )

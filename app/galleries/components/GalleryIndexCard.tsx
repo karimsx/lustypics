@@ -90,7 +90,18 @@ export const GalleryIndexCard = ({ gallery }) => {
         <Stack mt={3} direction={"row"} flexWrap="wrap">
           <Box mx={1} my={1}>
             {gallery.tags.map((tag) => (
-              <Chip sx={{ mr: 1, mb: 1 }} size="small" onClick={() => {}} label={tag.name} />
+              <Chip
+                sx={{ mr: 1, mb: 1 }}
+                size="small"
+                onClick={async () => {
+                  await router.push(`/galleries`, {
+                    query: {
+                      tags: tag.id,
+                    },
+                  })
+                }}
+                label={tag.name}
+              />
             ))}
           </Box>
         </Stack>
