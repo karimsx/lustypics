@@ -111,7 +111,7 @@ export default function PrimaryAppBar() {
     <Box sx={{ width: 250 }} role="presentation" onClick={() => setDrawerOpen(false)}>
       <List>
         {Object.keys(menu).map((menuItem, index) => (
-          <Link href={menu[menuItem].link}>
+          <Link key={menuItem} href={menu[menuItem].link}>
             <ListItem key={menuItem} disablePadding>
               <ListItemButton>
                 <ListItemIcon>{menu[menuItem].icon}</ListItemIcon>
@@ -179,7 +179,7 @@ export default function PrimaryAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {Object.keys(menu).map((menuItem) => (
-              <Link href={menu[menuItem].link}>
+              <Link key={menuItem} href={menu[menuItem].link}>
                 <Button sx={{ display: "flex", alignItems: "center" }} color="inherit">
                   <Box mr={1}>{menu[menuItem].icon}</Box>
                   {menu[menuItem].label}

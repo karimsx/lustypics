@@ -13,6 +13,7 @@ import {
 import Link from "next/link"
 import MyAvatar from "../../core/components/MyAvatar"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 
 export const GalleryOverviewCard = ({
   gallery,
@@ -21,6 +22,7 @@ export const GalleryOverviewCard = ({
   gallery: Gallery & { files: File[]; tags: Tags[]; owner?: User }
 }) => {
   const [value, setValue] = useState<number | null>(2)
+  const router = useRouter()
 
   return (
     <Box mt={2} {...other}>
@@ -40,7 +42,18 @@ export const GalleryOverviewCard = ({
                 <Box ml={2}>
                   {gallery.tags.map((tag) => (
                     <Box display={"inline-block"} mr={1}>
-                      <Chip size={"small"} label={tag.name} />
+                      <Chip
+                        onClick={() =>
+                          router.push({
+                            href: "/galleries",
+                            query: {
+                              tags: tag.id,
+                            },
+                          })
+                        }
+                        size={"small"}
+                        label={tag.name}
+                      />
                     </Box>
                   ))}
                 </Box>

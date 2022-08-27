@@ -42,9 +42,6 @@ import { useRouter } from "next/router"
  */
 
 const Galleries = () => {
-  const router = useRouter()
-  const { tags, orderBy, term } = router.query
-
   const [pagination, setPagination] = useState({
     page: 1,
     perPage: 10,
@@ -85,14 +82,7 @@ const Galleries = () => {
   return (
     <>
       <Container>
-        <GalleryFilterForm
-          defaultValues={{
-            tags: tags,
-            term: term,
-            orderBy,
-          }}
-          onChange={handleFiltersChange}
-        />
+        <GalleryFilterForm onChange={handleFiltersChange} />
         {galleries?.items?.map((gallery) => (
           <GalleryOverviewCard key={gallery.id} gallery={gallery} />
         ))}
