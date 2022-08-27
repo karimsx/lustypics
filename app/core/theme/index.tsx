@@ -1,29 +1,29 @@
-import { useMemo, ReactNode } from 'react';
+import { useMemo, ReactNode } from "react"
 // @mui
-import { CssBaseline } from '@mui/material';
-import { createTheme, ThemeOptions, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from "@mui/material"
+import { createTheme, ThemeOptions, ThemeProvider as MUIThemeProvider } from "@mui/material/styles"
 // hooks
-import useSettings from '../hooks/useSettings';
+import useSettings from "../hooks/useSettings"
 //
-import palette from './palette';
-import typography from './typography';
-import breakpoints from './breakpoints';
-import componentsOverride from './overrides';
-import shadows, { customShadows } from './shadows';
+import palette from "./palette"
+import typography from "./typography"
+import breakpoints from "./breakpoints"
+import componentsOverride from "./overrides"
+import shadows, { customShadows } from "./shadows"
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 export default function ThemeProvider({ children }: Props) {
-  const { themeMode, themeDirection } = useSettings();
-  const isLight = themeMode === 'light';
+  const { themeMode, themeDirection } = useSettings()
+  const isLight = themeMode === "light"
 
   const themeOptions: ThemeOptions = useMemo(
     () => ({
-      palette: isLight ? palette.light : palette.dark,
+      palette: isLight ? palette.dark : palette.dark,
       typography,
       breakpoints,
       shape: { borderRadius: 8 },
@@ -32,15 +32,15 @@ export default function ThemeProvider({ children }: Props) {
       customShadows: isLight ? customShadows.light : customShadows.dark,
     }),
     [isLight, themeDirection]
-  );
+  )
 
-  const theme = createTheme(themeOptions);
-  theme.components = componentsOverride(theme);
+  const theme = createTheme(themeOptions)
+  theme.components = componentsOverride(theme)
 
   return (
     <MUIThemeProvider theme={theme}>
       <CssBaseline />
       {children}
     </MUIThemeProvider>
-  );
+  )
 }

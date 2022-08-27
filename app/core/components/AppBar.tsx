@@ -1,4 +1,3 @@
-import * as React from "react"
 import { styled, alpha } from "@mui/material/styles"
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
@@ -15,12 +14,29 @@ import AccountCircle from "@mui/icons-material/AccountCircle"
 import MailIcon from "@mui/icons-material/Mail"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import MoreIcon from "@mui/icons-material/MoreVert"
-import { Button, Divider, useMediaQuery, useTheme } from "@mui/material"
+import {
+  Button,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material"
 import { Link as ReactLink } from "@mui/material"
 import Link from "next/link"
 import { AuthUserMenu } from "./AuthUserMenu"
 import { useCurrentUser } from "../hooks/useCurrentUser"
 import { useRouter } from "next/router"
+import InboxIcon from "@mui/icons-material/MoveToInbox"
+import { useState } from "react"
+import ExploreIcon from "@mui/icons-material/Explore"
+import ImageIcon from "@mui/icons-material/Image"
+import CategoryIcon from "@mui/icons-material/Category"
+import PeopleIcon from "@mui/icons-material/People"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,13 +78,53 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }))
 
+const menu = {
+  explore: {
+    icon: <ExploreIcon />,
+    link: "/",
+    label: "Explore",
+  },
+  galleries: {
+    icon: <ImageIcon />,
+    link: "/",
+    label: "Galleries",
+  },
+  categories: {
+    icon: <CategoryIcon />,
+    link: "/",
+    label: "Categories",
+  },
+  members: {
+    icon: <PeopleIcon />,
+    link: "/",
+    label: "Members",
+  },
+}
+
 export default function PrimaryAppBar() {
   const user = useCurrentUser()
   const router = useRouter()
 
-  const theme = useTheme()
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
-  const [search, setSearch] = React.useState<string | undefined>(undefined)
+  const list = () => (
+    <Box sx={{ width: 250 }} role="presentation" onClick={() => setDrawerOpen(false)}>
+      <List>
+        {Object.keys(menu).map((menuItem, index) => (
+          <Link href={menu[menuItem].link}>
+            <ListItem key={menuItem} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>{menu[menuItem].icon}</ListItemIcon>
+                <ListItemText primary={menu[menuItem].label} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        ))}
+      </List>
+    </Box>
+  )
+
+  const [search, setSearch] = useState<string | undefined>(undefined)
 
   const onSearch = async () => {
     await router.push(`/galleries`, {
@@ -82,6 +138,10 @@ export default function PrimaryAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+            {list()}
+          </Drawer>
+
           <Box display={{ sm: "flex", md: "none" }}>
             <IconButton
               size="large"
@@ -89,6 +149,7 @@ export default function PrimaryAppBar() {
               color="inherit"
               aria-label="open drawer"
               sx={{ mr: 2 }}
+              onClick={() => setDrawerOpen(true)}
             >
               <MenuIcon />
             </IconButton>
@@ -121,20 +182,17 @@ export default function PrimaryAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link href="/">
-              <Button color="inherit">Explore</Button>
-            </Link>
-            <Link href="/galleries">
-              <Button color="inherit">Galleries</Button>
-            </Link>
-            <Link href="/categories">
-              <Button color="inherit">Categories</Button>
-            </Link>
-
-            <Link href="/members">
-              <Button color="inherit">Members</Button>
-            </Link>
+            {Object.keys(menu).map((menuItem) => (
+              <Link href={menu[menuItem].link}>
+                <Button sx={{ display: "flex", alignItems: "center" }} color="inherit">
+                  <Box mr={1}>{menu[menuItem].icon}</Box>
+                  {menu[menuItem].label}
+                </Button>
+              </Link>
+            ))}
           </Box>
+
+          <Divider sx={{ mx: 2 }} orientation="vertical" />
 
           <Box>
             {!user && (

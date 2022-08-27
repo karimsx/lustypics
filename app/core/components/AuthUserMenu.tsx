@@ -127,7 +127,6 @@ export const AuthUserMenu = () => {
     <>
       <Divider orientation="vertical" />
       <Box mr={2} />
-
       {/*<IconButton size="large" aria-label="show 4 new mails" color="inherit">*/}
       {/*  <Badge badgeContent={4} color="error">*/}
       {/*    <MailIcon />*/}
@@ -138,6 +137,7 @@ export const AuthUserMenu = () => {
       {/*    <NotificationsIcon />*/}
       {/*  </Badge>*/}
       {/*</IconButton>*/}
+      Karim Squalli
       <IconButton
         size="large"
         edge="end"
@@ -149,7 +149,6 @@ export const AuthUserMenu = () => {
       >
         <AccountCircle />
       </IconButton>
-
       {renderMobileMenu}
       {renderMenu}
     </>

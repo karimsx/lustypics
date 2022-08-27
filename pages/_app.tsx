@@ -15,10 +15,10 @@ import ThemeColorPresets from "app/core/components/ThemeColorPresets"
 import ThemeLocalization from "app/core/components/ThemeLocalization"
 import ProgressBar from "app/core/components/ProgressBar"
 import DialogProvider from "app/core/contexts/DialogContext"
-import 'simplebar-react/dist/simplebar.min.css';
+import "simplebar-react/dist/simplebar.min.css"
 import Layout from "../app/core/layouts/Layout"
-import {LocalizationProvider} from "@mui/x-date-pickers";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {
@@ -57,7 +57,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
                       <Layout>
                         <Component {...pageProps} />
-
                       </Layout>
                     </Suspense>
                   </DialogProvider>
@@ -67,7 +66,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           </NotistackProvider>
         </ThemeProvider>
       </LocalizationProvider>
-
     </ErrorBoundary>
   )
 }

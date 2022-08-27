@@ -21,10 +21,7 @@ export default function MainLayout({ children }: Props) {
 
   return (
     <Stack sx={{ minHeight: 1 }}>
-      <Box sx={{backgroundColor: "grey.200"}}>
-        {children}
-
-      </Box>
+      <Box sx={{ backgroundColor: "background.default" }}>{children}</Box>
 
       <Box sx={{ mt: 3, flexGrow: 1 }} />
 
