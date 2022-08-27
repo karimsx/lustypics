@@ -137,7 +137,6 @@ export const AuthUserMenu = () => {
       {/*    <NotificationsIcon />*/}
       {/*  </Badge>*/}
       {/*</IconButton>*/}
-      Karim Squalli
       <IconButton
         size="large"
         edge="end"

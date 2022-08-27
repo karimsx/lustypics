@@ -22,7 +22,7 @@ import getTags from "../queries/tags/getTags"
 import { useForm, useWatch } from "react-hook-form"
 import { useDebounce } from "usehooks-ts"
 
-export const GalleryFilterForm = ({ onChange }) => {
+export const GalleryFilterForm = ({ onChange, defaultValues }) => {
   const [tags] = useQuery(getTags, {})
   const [term, setTerm] = useState<string>("")
   const debouncedTerm = useDebounce<string>(term, 500)
@@ -30,9 +30,9 @@ export const GalleryFilterForm = ({ onChange }) => {
   const ctx = useForm({
     mode: "onBlur",
     defaultValues: {
-      term: "",
+      term: defaultValues?.term || "",
       tags: [],
-      orderBy: "latest",
+      orderBy: defaultValues?.orderBy || "latest",
     },
   })
 
@@ -56,7 +56,7 @@ export const GalleryFilterForm = ({ onChange }) => {
       tags: watchedTagsAndOrderBy[0]?.map((tag: Tags) => tag.id),
       orderBy: watchedTagsAndOrderBy[1],
     })
-  }, [debouncedTerm, watchedTagsAndOrderBy])
+  }, [debouncedTerm, watchedTagsAndOrderBy, onChange])
 
   return (
     <>

@@ -89,7 +89,7 @@ export const GalleryIndexCard = ({ gallery, ...others }) => {
       />
       <CardContent>
         <Link href={`/galleries/${gallery.id}`} passHref>
-          <ReactLink sx={{ textDecoration: "none", color: "common.black" }}>
+          <ReactLink sx={{ textDecoration: "none", color: "common.white" }}>
             <Typography>{gallery.name}</Typography>
           </ReactLink>
         </Link>
@@ -102,7 +102,8 @@ export const GalleryIndexCard = ({ gallery, ...others }) => {
                 sx={{ mr: 1, mb: 1 }}
                 size="small"
                 onClick={async () => {
-                  await router.push(`/galleries`, {
+                  await router.push({
+                    href: "/galleries",
                     query: {
                       tags: tag.id,
                     },

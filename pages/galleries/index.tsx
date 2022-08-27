@@ -34,6 +34,7 @@ import getTags from "app/galleries/queries/tags/getTags"
 import Form from "app/core/components/Form"
 import { RHFSelect, RHFTextField } from "app/core/components/hook-form"
 import { GalleryFilterForm } from "app/galleries/components/GalleryFilterForm"
+import { useRouter } from "next/router"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
@@ -41,6 +42,9 @@ import { GalleryFilterForm } from "app/galleries/components/GalleryFilterForm"
  */
 
 const Galleries = () => {
+  const router = useRouter()
+  const { tags, orderBy, term } = router.query
+
   const [pagination, setPagination] = useState({
     page: 1,
     perPage: 10,
@@ -81,9 +85,16 @@ const Galleries = () => {
   return (
     <>
       <Container>
-        <GalleryFilterForm onChange={handleFiltersChange} />
+        <GalleryFilterForm
+          defaultValues={{
+            tags: tags,
+            term: term,
+            orderBy,
+          }}
+          onChange={handleFiltersChange}
+        />
         {galleries?.items?.map((gallery) => (
-          <GalleryOverviewCard gallery={gallery} />
+          <GalleryOverviewCard key={gallery.id} gallery={gallery} />
         ))}
 
         <Box my={4} display={"flex"} justifyContent="center">

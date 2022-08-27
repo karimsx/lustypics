@@ -30,13 +30,13 @@ import { Link as ReactLink } from "@mui/material"
 import Link from "next/link"
 import { AuthUserMenu } from "./AuthUserMenu"
 import { useCurrentUser } from "../hooks/useCurrentUser"
-import { useRouter } from "next/router"
 import InboxIcon from "@mui/icons-material/MoveToInbox"
 import { useState } from "react"
 import ExploreIcon from "@mui/icons-material/Explore"
 import ImageIcon from "@mui/icons-material/Image"
 import CategoryIcon from "@mui/icons-material/Category"
 import PeopleIcon from "@mui/icons-material/People"
+import { useRouter } from "next/router"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -86,17 +86,17 @@ const menu = {
   },
   galleries: {
     icon: <ImageIcon />,
-    link: "/",
+    link: "/galleries",
     label: "Galleries",
   },
   categories: {
     icon: <CategoryIcon />,
-    link: "/",
+    link: "/categories",
     label: "Categories",
   },
   members: {
     icon: <PeopleIcon />,
-    link: "/",
+    link: "/members",
     label: "Members",
   },
 }
@@ -127,11 +127,7 @@ export default function PrimaryAppBar() {
   const [search, setSearch] = useState<string | undefined>(undefined)
 
   const onSearch = async () => {
-    await router.push(`/galleries`, {
-      query: {
-        term: search,
-      },
-    })
+    await router.push(`/galleries?term=${search}`)
   }
 
   return (
