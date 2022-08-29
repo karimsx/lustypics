@@ -12,6 +12,7 @@ export default async function getGallery({ id }: { id: number }, { session }: Ct
       files: true,
       owner: true,
       tags: true,
+      rating: true,
     },
   })
 

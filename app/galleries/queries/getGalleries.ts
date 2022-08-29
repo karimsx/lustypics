@@ -81,6 +81,7 @@ export default async function getGalleries(
       files: true,
       owner: true,
       tags: true,
+      rating: true,
     },
   })
 
